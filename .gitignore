@@ -42,3 +42,5 @@ data/*.bak
 data/temp_*
 *.bak
 bun.lock
+
+brain/

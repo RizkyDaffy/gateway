@@ -1,6 +1,7 @@
 import { Elysia } from "elysia";
+import { jwt } from "@elysiajs/jwt";
 import os from "os";
-import { validateClientKey } from "../services/auth";
+import { validateClientKey, getJwtSecret } from "../services/auth";
 import {
   proxyOpenAIChatCompletions,
   proxyAnthropicMessages,
@@ -137,7 +138,20 @@ function getV1Directory() {
   };
 }
 
+// Admin UI session cookie check — same contract as middleware/auth.ts (HS256 JWT, role=admin).
+async function hasAdminSession(cookie: any, jwt: any): Promise<boolean> {
+  const value = cookie?.session?.value;
+  if (!value) return false;
+  try {
+    const payload: any = await jwt.verify(String(value));
+    return Boolean(payload && payload.role === "admin");
+  } catch (e) {
+    return false;
+  }
+}
+
 export const proxyRoutes = new Elysia()
+  .use(jwt({ name: "jwt", secret: getJwtSecret() }))
   .onBeforeHandle(({ request }) => {
     const httpsErr = checkHttpsRequirement(request);
     if (httpsErr) return httpsErr;
@@ -207,7 +221,7 @@ export const proxyRoutes = new Elysia()
   })
 
   // OpenAI Models list (tanpa key: publik semua model; dengan key: saring sesuai key atau pass-through)
-  .get("/v1/models", async ({ request, set }) => {
+  .get("/v1/models", async ({ request, set, cookie, jwt }) => {
     const authHeader = request.headers.get("Authorization");
     const xApiKey = request.headers.get("x-api-key");
     const key = authHeader?.startsWith("Bearer ")
@@ -230,10 +244,20 @@ export const proxyRoutes = new Elysia()
       return proxyOpenAIModels(clientKey, request.headers);
     }
 
-    // Tanpa key: tampilkan semua model aktif dari seluruh provider
+    // Tanpa key: wajibkan sesi admin (cookie) — endpoint ini tidak lagi publik
+    if (!(await hasAdminSession(cookie, jwt))) {
+      set.status = 401;
+      return {
+        error: {
+          message: "Akses ditolak: Token tidak disediakan",
+          type: "invalid_request_error",
+          code: "invalid_api_key",
+        },
+      };
+    }
     return proxyOpenAIModels(null, request.headers);
   })
-  .get("/models", async ({ request, set }) => {
+  .get("/models", async ({ request, set, cookie, jwt }) => {
     const authHeader = request.headers.get("Authorization");
     const xApiKey = request.headers.get("x-api-key");
     const key = authHeader?.startsWith("Bearer ")
@@ -256,6 +280,17 @@ export const proxyRoutes = new Elysia()
       return proxyOpenAIModels(clientKey, request.headers);
     }
 
+    // Tanpa key: wajibkan sesi admin (cookie) — endpoint ini tidak lagi publik
+    if (!(await hasAdminSession(cookie, jwt))) {
+      set.status = 401;
+      return {
+        error: {
+          message: "Akses ditolak: Token tidak disediakan",
+          type: "invalid_request_error",
+          code: "invalid_api_key",
+        },
+      };
+    }
     return proxyOpenAIModels(null, request.headers);
   })
 
