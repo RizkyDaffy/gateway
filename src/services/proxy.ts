@@ -408,7 +408,7 @@ export async function proxyOpenAIChatCompletions(
         const clientAuth = reqHeaders.get("Authorization");
         const clientKeyHeader = reqHeaders.get("x-api-key");
         const passedKey = clientAuth?.startsWith("Bearer ") ? clientAuth.slice(7).trim() : clientKeyHeader?.trim();
-        if (passedKey && !passedKey.startsWith("sk-rizuu-") && passedKey !== "bb-default") {
+        if (passedKey && !passedKey.startsWith("sk-rizuu-") && !passedKey.startsWith("sk-neko-") && passedKey !== "bb-default") {
           authHeaderVal = `Bearer ${passedKey}`;
         } else {
           authHeaderVal = "Bearer bb-default";
@@ -1533,7 +1533,7 @@ export async function proxyOpenAIModels(
     const targetUrl = targetBase.endsWith("/v1") ? `${targetBase}/models` : `${targetBase}/v1/models`;
 
     let authToSend: string;
-    if (passedKey && passedKey !== "bb-default" && !passedKey.startsWith("sk-rizuu-")) {
+    if (passedKey && passedKey !== "bb-default" && !passedKey.startsWith("sk-rizuu-") && !passedKey.startsWith("sk-neko-")) {
       authToSend = `Bearer ${passedKey}`;
     } else if (followUpstream.apiKey) {
       authToSend = `Bearer ${followUpstream.apiKey}`;

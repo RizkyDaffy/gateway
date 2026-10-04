@@ -180,11 +180,22 @@ export async function validateClientKey(
   providedKey: string
 ): Promise<ClientKey | null> {
   if (!providedKey) return null;
-  const keyRecord = db
+  let keyRecord = db
     .select()
     .from(clientKeys)
     .where(eq(clientKeys.key, providedKey))
     .get();
+
+  // Legacy brand compatibility: keys minted before the Neko -> Rizuu rename used the
+  // sk-neko- prefix. Fall back to the renamed sk-rizuu- row. Additive lookup only,
+  // it never changes the result of an exact match above.
+  if (!keyRecord && providedKey.startsWith("sk-neko-")) {
+    keyRecord = db
+      .select()
+      .from(clientKeys)
+      .where(eq(clientKeys.key, `sk-rizuu-${providedKey.slice("sk-neko-".length)}`))
+      .get();
+  }
 
   if (keyRecord && keyRecord.isActive) {
     // Update lastUsedAt asynchronously
