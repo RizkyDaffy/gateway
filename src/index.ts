@@ -19,8 +19,14 @@ import { verifyPin, getTurnstileConfig, verifyTurnstileToken } from "./services/
 // Initialize database schema and default PIN
 await initDatabase();
 
-// Pre-bundle frontend in memory on startup (background)
-bundleFrontend().catch((err) => console.error("[Frontend] Bundle preheat error:", err));
+// Pre-load frontend assets on startup
+// - PRODUCTION: reads pre-built dist-web/ files from disk (fast, no memory spike)
+// - DEVELOPMENT: runs Bun.build() in the background (same as before)
+if (process.env.NODE_ENV !== "production") {
+  bundleFrontend().catch((err) => console.error("[Frontend] Bundle preheat error:", err));
+} else {
+  bundleFrontend().catch((err) => console.error("[Frontend] Failed to load pre-built assets:", err));
+}
 
 // Watch .env for changes in both development and production
 const envPath = join(process.cwd(), ".env");

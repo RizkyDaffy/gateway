@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "bun scripts/dev.ts",
     "build": "echo \"No build required (in-memory dynamic frontend)\"",
-    "start": "bun --watch src/index.ts"
+    "build:web": "bun scripts/build-web.ts",
+    "start": "bun src/index.ts",
+    "deploy": "bun run build:web && bun run start"
   },
   "devDependencies": {
     "@tailwindcss/cli": "^4.3.3",

@@ -13,6 +13,10 @@ export let sqlite = new Database(DB_PATH);
 sqlite.run("PRAGMA journal_mode = WAL;");
 sqlite.run("PRAGMA synchronous = NORMAL;");
 sqlite.run("PRAGMA foreign_keys = ON;");
+// Performance tuning for low-RAM / single-core environments
+sqlite.run("PRAGMA cache_size = -8000;");   // 8 MB page cache (negative = KiB)
+sqlite.run("PRAGMA temp_store = MEMORY;");   // temp tables in RAM, avoid disk I/O
+sqlite.run("PRAGMA mmap_size = 67108864;"); // 64 MB memory-mapped I/O for faster reads
 
 export function initTablesSync(): void {
   // Ensure tables exist
@@ -155,6 +159,44 @@ export function initTablesSync(): void {
 initTablesSync();
 
 export let db = drizzle(sqlite, { schema });
+
+// ---------------------------------------------------------------------------
+// Background maintenance job — runs every hour
+// Keeps telemetry_logs capped at 30 days and purges expired response_cache
+// rows so the SQLite file (and WAL) never grow unboundedly.
+// .unref() ensures this interval never prevents a clean process exit.
+// ---------------------------------------------------------------------------
+const TELEMETRY_MAX_AGE_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
+
+function runMaintenanceJob(): void {
+  try {
+    const cutoff = Date.now() - TELEMETRY_MAX_AGE_MS;
+    const deleted = sqlite.run(
+      "DELETE FROM telemetry_logs WHERE created_at < ?",
+      [cutoff]
+    );
+    const cacheDeleted = sqlite.run(
+      "DELETE FROM response_cache WHERE expires_at < ?",
+      [Date.now()]
+    );
+    // Passive checkpoint: flush WAL pages that are already read by all readers
+    sqlite.run("PRAGMA wal_checkpoint(PASSIVE);");
+    if ((deleted.changes ?? 0) > 0 || (cacheDeleted.changes ?? 0) > 0) {
+      console.log(
+        `[Maintenance] Pruned ${deleted.changes ?? 0} telemetry row(s) and ` +
+        `${cacheDeleted.changes ?? 0} cache row(s).`
+      );
+    }
+  } catch (e) {
+    console.error("[Maintenance] Cleanup job failed:", e);
+  }
+}
+
+const _maintenanceInterval = setInterval(runMaintenanceJob, 60 * 60 * 1000);
+// Don't block process exit on this timer
+if (typeof _maintenanceInterval.unref === "function") {
+  _maintenanceInterval.unref();
+}
 
 export async function initDatabase(): Promise<void> {
   initTablesSync();

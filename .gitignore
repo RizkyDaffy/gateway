@@ -4,6 +4,7 @@ node_modules
 # output
 out
 dist
+dist-web
 *.tgz
 
 # code coverage
@@ -44,3 +45,8 @@ data/temp_*
 bun.lock
 
 brain/
+
+brain.md
+API_Docs.md
+AGENTS.md
+README.md
