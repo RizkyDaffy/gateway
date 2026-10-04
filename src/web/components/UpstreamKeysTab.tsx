@@ -149,7 +149,7 @@ const PRESET_PROVIDERS: ProviderPreset[] = [
     name: "OpenAI Codex",
     provider: "openai",
     baseUrl: "https://chatgpt.com/backend-api/codex/responses",
-    iconBg: "bg-emerald-600 border border-emerald-500 text-white",
+    iconBg: "bg-blue-600 border border-blue-500 text-white",
     category: "oauth",
     authType: "oauth",
     badge: "ChatGPT OAuth",
@@ -318,7 +318,7 @@ export const UpstreamKeysTab: React.FC = () => {
             list.includes("bb")
           );
         }
-      } catch (e) {}
+      } catch (e) { }
       return false;
     });
   };
@@ -1359,29 +1359,29 @@ export const UpstreamKeysTab: React.FC = () => {
 
     const resolvedName = isAccountMode
       ? (alias?.trim() ||
-          (activePreset?.id === "antigravity"
-            ? "Antigravity Pool"
-            : activePreset?.id === "openai-codex"
-              ? "OpenAI Codex Pool"
-              : "GitHub Copilot Pool"))
+        (activePreset?.id === "antigravity"
+          ? "Antigravity Pool"
+          : activePreset?.id === "openai-codex"
+            ? "OpenAI Codex Pool"
+            : "GitHub Copilot Pool"))
       : alias.trim();
 
     const resolvedPrefix = isAccountMode
       ? (prefix?.trim() ||
-          (activePreset?.id === "antigravity"
-            ? "antigravity"
-            : activePreset?.id === "openai-codex"
-              ? "codex"
-              : "copilot"))
+        (activePreset?.id === "antigravity"
+          ? "antigravity"
+          : activePreset?.id === "openai-codex"
+            ? "codex"
+            : "copilot"))
       : (prefix ? prefix.trim() : null);
 
     const resolvedBaseUrl = isAccountMode
       ? (baseUrl ||
-          (activePreset?.id === "antigravity"
-            ? "https://daily-cloudcode-pa.googleapis.com"
-            : activePreset?.id === "openai-codex"
-              ? "https://chatgpt.com/backend-api/codex/responses"
-              : "https://api.githubcopilot.com"))
+        (activePreset?.id === "antigravity"
+          ? "https://daily-cloudcode-pa.googleapis.com"
+          : activePreset?.id === "openai-codex"
+            ? "https://chatgpt.com/backend-api/codex/responses"
+            : "https://api.githubcopilot.com"))
       : (baseUrl || undefined);
 
     setSaving(true);
@@ -2236,10 +2236,10 @@ export const UpstreamKeysTab: React.FC = () => {
                                 <button
                                   type="button"
                                   onClick={() => openConnectionsModal(item)}
-                                  className="inline-flex items-center space-x-1 text-[10px] font-semibold text-emerald-600 dark:text-emerald-400 hover:underline cursor-pointer"
+                                  className="inline-flex items-center space-x-1 text-[10px] font-semibold text-blue-600 dark:text-blue-400 hover:underline cursor-pointer"
                                   title="Manage or delete individual keys in pool"
                                 >
-                                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                                  <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
                                   <span>{activeKeys}/{totalKeys} Keys</span>
                                 </button>
                                 <span className="text-zinc-300 dark:text-zinc-700">·</span>
@@ -2314,7 +2314,7 @@ export const UpstreamKeysTab: React.FC = () => {
                                     className="flex items-center justify-between px-1.5 py-1 rounded bg-white dark:bg-zinc-800/80 border border-zinc-200/50 dark:border-zinc-700/50 text-[11px]"
                                   >
                                     <div className="min-w-0 flex-1 flex items-center space-x-1.5 mr-2">
-                                      <span className={`w-1.5 h-1.5 rounded-full ${ke.isActive ? "bg-emerald-500" : "bg-zinc-400"}`} />
+                                      <span className={`w-1.5 h-1.5 rounded-full ${ke.isActive ? "bg-blue-500" : "bg-zinc-400"}`} />
                                       <span className="font-semibold text-zinc-800 dark:text-zinc-200 truncate">
                                         {ke.name || `Key #${idx + 1}`}
                                       </span>
@@ -2351,7 +2351,7 @@ export const UpstreamKeysTab: React.FC = () => {
                           <Cpu className="w-3 h-3 text-indigo-400" />
                           <span>Models</span>
                           {modelsCount > 0 ? (
-                            <span className="font-bold text-emerald-500">
+                            <span className="font-bold text-blue-500">
                               {enabledCount}/{modelsCount}
                             </span>
                           ) : (
@@ -2381,7 +2381,7 @@ export const UpstreamKeysTab: React.FC = () => {
                             disabled={testingId === item.id}
                             className="skeuo-btn px-2 py-0.5 rounded text-[10px] font-medium flex items-center space-x-1 cursor-pointer"
                           >
-                            <Wifi className={`w-3 h-3 ${testingId === item.id ? "animate-pulse text-emerald-400" : ""}`} />
+                            <Wifi className={`w-3 h-3 ${testingId === item.id ? "animate-pulse text-blue-400" : ""}`} />
                             <span>{testingId === item.id ? "..." : "Test"}</span>
                           </button>
                         </div>
@@ -2468,8 +2468,8 @@ export const UpstreamKeysTab: React.FC = () => {
                               </div>
                               <div className="flex items-center space-x-1.5 text-[11px] mt-0.5">
                                 {isConnected ? (
-                                  <span className="inline-flex items-center text-emerald-600 dark:text-emerald-400 font-semibold">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1 animate-pulse" />
+                                  <span className="inline-flex items-center text-blue-600 dark:text-blue-400 font-semibold">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mr-1 animate-pulse" />
                                     <span>{activeKeysCount} of {totalKeysCount} Active Accounts</span>
                                   </span>
                                 ) : (
@@ -2504,7 +2504,7 @@ export const UpstreamKeysTab: React.FC = () => {
                               <Cpu className="w-3 h-3 text-indigo-400" />
                               <span>Models</span>
                               {connected.totalModelsCount && connected.totalModelsCount > 0 ? (
-                                <span className="font-bold text-emerald-500">
+                                <span className="font-bold text-blue-500">
                                   {connected.enabledModelsCount || 0}/{connected.totalModelsCount}
                                 </span>
                               ) : (
@@ -2612,8 +2612,8 @@ export const UpstreamKeysTab: React.FC = () => {
                                     const linkedKeys = getPassThroughLinkedKeys(connected?.id);
                                     const isActive = linkedKeys.length > 0;
                                     return isActive ? (
-                                      <span className="inline-flex items-center text-emerald-600 dark:text-emerald-400 font-semibold">
-                                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1 animate-pulse" />
+                                      <span className="inline-flex items-center text-blue-600 dark:text-blue-400 font-semibold">
+                                        <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mr-1 animate-pulse" />
                                         <span>Pass-Through Active ({linkedKeys.length} Secret Key{linkedKeys.length > 1 ? "s" : ""})</span>
                                       </span>
                                     ) : (
@@ -2624,8 +2624,8 @@ export const UpstreamKeysTab: React.FC = () => {
                                     );
                                   })()
                                 ) : isConnected && activeKeysCount > 0 ? (
-                                  <span className="inline-flex items-center text-emerald-600 dark:text-emerald-400 font-semibold">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1 animate-pulse" />
+                                  <span className="inline-flex items-center text-blue-600 dark:text-blue-400 font-semibold">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mr-1 animate-pulse" />
                                     <span>{activeKeysCount} of {totalKeysCount} Active Keys</span>
                                   </span>
                                 ) : (
@@ -2660,7 +2660,7 @@ export const UpstreamKeysTab: React.FC = () => {
                               <Cpu className="w-3 h-3 text-indigo-400" />
                               <span>Models</span>
                               {connected.totalModelsCount && connected.totalModelsCount > 0 ? (
-                                <span className="font-bold text-emerald-500">
+                                <span className="font-bold text-blue-500">
                                   {connected.enabledModelsCount || 0}/{connected.totalModelsCount}
                                 </span>
                               ) : (
@@ -2712,7 +2712,7 @@ export const UpstreamKeysTab: React.FC = () => {
                       <Layers className="w-8 h-8 mx-auto mb-2 opacity-40" />
                       <p className="font-medium">No upstream providers configured</p>
                       <p className="text-[11px] mt-1">
-                        Add at least one OpenAI or Anthropic API key pool to allow Neko-Router to serve proxy requests.
+                        Add at least one OpenAI or Anthropic API key pool to allow Rizuu-Router to serve proxy requests.
                       </p>
                     </td>
                   </tr>
@@ -2730,7 +2730,7 @@ export const UpstreamKeysTab: React.FC = () => {
                         <td className="px-5 py-3.5">
                           <span
                             className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${item.provider === "openai"
-                              ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20"
+                              ? "bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20"
                               : "bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20"
                               }`}
                           >
@@ -2811,7 +2811,7 @@ export const UpstreamKeysTab: React.FC = () => {
                                 <Cpu className="w-3 h-3 text-purple-400" />
                                 <span>Models</span>
                                 {modelsCount > 0 ? (
-                                  <span className="ml-0.5 text-[10px] font-bold text-emerald-500">
+                                  <span className="ml-0.5 text-[10px] font-bold text-blue-500">
                                     {enabledCount}/{modelsCount}
                                   </span>
                                 ) : null}
@@ -2825,7 +2825,7 @@ export const UpstreamKeysTab: React.FC = () => {
                               <Cpu className="w-3.5 h-3.5 text-indigo-400" />
                               <span>Models</span>
                               {modelsCount > 0 ? (
-                                <span className="ml-1 text-[10px] font-bold text-emerald-500">
+                                <span className="ml-1 text-[10px] font-bold text-blue-500">
                                   {enabledCount}/{modelsCount}
                                 </span>
                               ) : (
@@ -2841,8 +2841,8 @@ export const UpstreamKeysTab: React.FC = () => {
                           >
                             {item.isActive ? (
                               <>
-                                <ToggleRight className="w-5 h-5 text-emerald-500" />
-                                <span className="text-[11px] font-medium text-emerald-600 dark:text-emerald-400">
+                                <ToggleRight className="w-5 h-5 text-blue-500" />
+                                <span className="text-[11px] font-medium text-blue-600 dark:text-blue-400">
                                   Active
                                 </span>
                               </>
@@ -2863,12 +2863,12 @@ export const UpstreamKeysTab: React.FC = () => {
                               disabled={testingId === item.id}
                               className="skeuo-btn px-2.5 py-1 rounded-md text-zinc-700 dark:text-zinc-300 flex items-center space-x-1 text-[11px] cursor-pointer"
                             >
-                              <Wifi className={`w-3 h-3 ${testingId === item.id ? "animate-pulse text-emerald-400" : ""}`} />
+                              <Wifi className={`w-3 h-3 ${testingId === item.id ? "animate-pulse text-blue-400" : ""}`} />
                               <span>{testingId === item.id ? "Testing..." : "Test"}</span>
                             </button>
                             <button
                               onClick={() => item.followUpstream ? openPassThroughModal(item) : openConnectionsModal(item)}
-                              className="p-1.5 rounded-md skeuo-btn text-zinc-600 dark:text-zinc-300 hover:text-emerald-600 cursor-pointer"
+                              className="p-1.5 rounded-md skeuo-btn text-zinc-600 dark:text-zinc-300 hover:text-blue-600 cursor-pointer"
                               title={item.followUpstream ? "Pass-Through Settings" : "Manage & Delete Keys"}
                             >
                               {item.followUpstream ? <Radio className="w-3.5 h-3.5 text-purple-400" /> : <KeyRound className="w-3.5 h-3.5" />}
@@ -2919,7 +2919,7 @@ export const UpstreamKeysTab: React.FC = () => {
                   title="Close"
                 />
                 <span className="w-3 h-3 rounded-full bg-amber-500/80 inline-block" />
-                <span className="w-3 h-3 rounded-full bg-emerald-500/80 inline-block" />
+                <span className="w-3 h-3 rounded-full bg-blue-500/80 inline-block" />
               </div>
               <h3 className="text-sm font-bold text-zinc-900 dark:text-zinc-100">
                 {activePreset
@@ -2927,22 +2927,22 @@ export const UpstreamKeysTab: React.FC = () => {
                     ? `Edit ${activePreset.name}`
                     : `Setup ${activePreset.name}`
                   : isAccountMode
-                  ? isCurrentAntigravityPreset
-                    ? editingUpstream
-                      ? "Edit Antigravity"
-                      : "Setup Antigravity"
-                    : isCurrentCodexPreset
+                    ? isCurrentAntigravityPreset
                       ? editingUpstream
-                        ? "Edit OpenAI Codex"
-                        : "Setup OpenAI Codex"
-                      : isCurrentCopilotPreset
+                        ? "Edit Antigravity"
+                        : "Setup Antigravity"
+                      : isCurrentCodexPreset
                         ? editingUpstream
-                          ? "Edit GitHub Copilot"
-                          : "Setup GitHub Copilot"
-                        : "Setup OAuth Provider"
-                  : editingUpstream
-                    ? `Edit ${provider === "openai" ? "OpenAI" : "Anthropic"} Compatible`
-                    : `Add ${provider === "openai" ? "OpenAI" : "Anthropic"} Compatible`}
+                          ? "Edit OpenAI Codex"
+                          : "Setup OpenAI Codex"
+                        : isCurrentCopilotPreset
+                          ? editingUpstream
+                            ? "Edit GitHub Copilot"
+                            : "Setup GitHub Copilot"
+                          : "Setup OAuth Provider"
+                    : editingUpstream
+                      ? `Edit ${provider === "openai" ? "OpenAI" : "Anthropic"} Compatible`
+                      : `Add ${provider === "openai" ? "OpenAI" : "Anthropic"} Compatible`}
               </h3>
             </div>
 
@@ -2966,7 +2966,7 @@ export const UpstreamKeysTab: React.FC = () => {
                       </button>
                     </div>
                     <p className="text-[11px] text-zinc-400 leading-relaxed">
-                      Connect your Google accounts via Cloud Code OAuth. Store multiple accounts below and Neko-Router will automatically rotate requests using Round-Robin across active accounts.
+                      Connect your Google accounts via Cloud Code OAuth. Store multiple accounts below and Rizuu-Router will automatically rotate requests using Round-Robin across active accounts.
                     </p>
                     <div className="text-[10px] text-zinc-400 bg-zinc-950/60 p-2.5 rounded-md border border-zinc-800 space-y-1">
                       <div className="font-medium text-zinc-300">How to Connect:</div>
@@ -2979,20 +2979,20 @@ export const UpstreamKeysTab: React.FC = () => {
                   <>
                     <div className="flex items-center justify-between">
                       <div className="font-semibold flex items-center space-x-1.5 text-zinc-100">
-                        <OpenAIIcon className="w-4 h-4 text-emerald-400 shrink-0" />
+                        <OpenAIIcon className="w-4 h-4 text-blue-400 shrink-0" />
                         <span>OpenAI Codex</span>
                       </div>
                       <button
                         type="button"
                         onClick={() => startCodexOAuth()}
-                        className="px-2.5 py-1 rounded bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-[11px] inline-flex items-center space-x-1.5 cursor-pointer shadow-xs"
+                        className="px-2.5 py-1 rounded bg-blue-600 hover:bg-blue-500 text-white font-semibold text-[11px] inline-flex items-center space-x-1.5 cursor-pointer shadow-xs"
                       >
                         <OpenAIIcon className="w-3.5 h-3.5 text-white" />
                         <span>+ Login via OpenAI</span>
                       </button>
                     </div>
                     <p className="text-[11px] text-zinc-400 leading-relaxed">
-                      Connect your OpenAI accounts via Codex CLI OAuth. Store multiple ChatGPT accounts below and Neko-Router will automatically rotate requests using Round-Robin across active accounts.
+                      Connect your OpenAI accounts via Codex CLI OAuth. Store multiple ChatGPT accounts below and Rizuu-Router will automatically rotate requests using Round-Robin across active accounts.
                     </p>
                     <div className="text-[10px] text-zinc-400 bg-zinc-950/60 p-2.5 rounded-md border border-zinc-800 space-y-1">
                       <div className="font-medium text-zinc-300">How to Connect:</div>
@@ -3018,7 +3018,7 @@ export const UpstreamKeysTab: React.FC = () => {
                       </button>
                     </div>
                     <p className="text-[11px] text-zinc-400 leading-relaxed">
-                      Connect your GitHub account via Device Code OAuth. Store multiple GitHub Copilot accounts below and Neko-Router will automatically rotate requests using Round-Robin across active accounts.
+                      Connect your GitHub account via Device Code OAuth. Store multiple GitHub Copilot accounts below and Rizuu-Router will automatically rotate requests using Round-Robin across active accounts.
                     </p>
                     <div className="text-[10px] text-zinc-400 bg-zinc-950/60 p-2.5 rounded-md border border-zinc-800 space-y-1">
                       <div className="font-medium text-zinc-300">How to Connect:</div>
@@ -3061,7 +3061,7 @@ export const UpstreamKeysTab: React.FC = () => {
                       </div>
                     </div>
                   </div>
-                  <span className="text-[10px] text-emerald-500 font-semibold px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20">
+                  <span className="text-[10px] text-blue-500 font-semibold px-2 py-0.5 rounded bg-blue-500/10 border border-blue-500/20">
                     Template Preconfigured
                   </span>
                 </div>
@@ -3151,7 +3151,7 @@ export const UpstreamKeysTab: React.FC = () => {
                         isCurrentAntigravityPreset ? (
                           <Rocket className="w-3.5 h-3.5 text-indigo-400" />
                         ) : isCurrentCodexPreset ? (
-                          <OpenAIIcon className="w-3.5 h-3.5 text-emerald-400" />
+                          <OpenAIIcon className="w-3.5 h-3.5 text-blue-400" />
                         ) : (
                           <GithubIcon className="w-3.5 h-3.5 text-zinc-700 dark:text-zinc-300" />
                         )
@@ -3170,7 +3170,7 @@ export const UpstreamKeysTab: React.FC = () => {
                     </label>
                     <p className="text-[10px] text-zinc-400">
                       {isAccountMode
-                        ? "Store multiple OAuth accounts. Neko-Router automatically round-robins requests across active accounts."
+                        ? "Store multiple OAuth accounts. Rizuu-Router automatically round-robins requests across active accounts."
                         : "Configure keys. Toggle on/off individually."}
                     </p>
                   </div>
@@ -3187,7 +3187,7 @@ export const UpstreamKeysTab: React.FC = () => {
                       title="Rotate requests across active accounts/keys in this pool"
                     >
                       {roundRobin ? (
-                        <ToggleRight className="w-5 h-5 text-emerald-500" />
+                        <ToggleRight className="w-5 h-5 text-blue-500" />
                       ) : (
                         <ToggleLeft className="w-5 h-5 text-zinc-400" />
                       )}
@@ -3229,7 +3229,7 @@ export const UpstreamKeysTab: React.FC = () => {
                             title={k.isActive ? "Disable account" : "Enable account"}
                           >
                             {k.isActive ? (
-                              <ToggleRight className="w-5 h-5 text-emerald-500" />
+                              <ToggleRight className="w-5 h-5 text-blue-500" />
                             ) : (
                               <ToggleLeft className="w-5 h-5 text-zinc-400" />
                             )}
@@ -3270,7 +3270,7 @@ export const UpstreamKeysTab: React.FC = () => {
                           isCurrentAntigravityPreset ? (
                             <Rocket className="w-3.5 h-3.5 text-indigo-400 absolute left-2 top-2" />
                           ) : isCurrentCodexPreset ? (
-                            <OpenAIIcon className="w-3.5 h-3.5 text-emerald-400 absolute left-2 top-2" />
+                            <OpenAIIcon className="w-3.5 h-3.5 text-blue-400 absolute left-2 top-2" />
                           ) : isCurrentCopilotPreset ? (
                             <GithubIcon className="w-3.5 h-3.5 text-zinc-400 absolute left-2 top-2" />
                           ) : (
@@ -3307,7 +3307,7 @@ export const UpstreamKeysTab: React.FC = () => {
                         <button
                           type="button"
                           onClick={() => startCodexOAuth()}
-                          className="inline-flex items-center space-x-1 text-[11px] font-semibold text-white bg-emerald-600 px-2.5 py-0.5 rounded hover:bg-emerald-500 cursor-pointer shadow-xs"
+                          className="inline-flex items-center space-x-1 text-[11px] font-semibold text-white bg-blue-600 px-2.5 py-0.5 rounded hover:bg-blue-500 cursor-pointer shadow-xs"
                         >
                           <OpenAIIcon className="w-3 h-3" />
                           <span>+ Login via OpenAI</span>
@@ -3413,12 +3413,12 @@ export const UpstreamKeysTab: React.FC = () => {
                 {checkStatus && (
                   <div
                     className={`mt-2 p-2 rounded-md text-xs flex items-center space-x-2 ${checkStatus.success
-                      ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25"
+                      ? "bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/25"
                       : "bg-red-500/10 text-red-600 dark:text-red-400 border border-red-500/25"
                       }`}
                   >
                     {checkStatus.success ? (
-                      <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-500" />
+                      <CheckCircle2 className="w-4 h-4 shrink-0 text-blue-500" />
                     ) : (
                       <XCircle className="w-4 h-4 shrink-0 text-red-500" />
                     )}
@@ -3507,22 +3507,21 @@ export const UpstreamKeysTab: React.FC = () => {
                   <div className="flex items-start justify-between pb-3.5 border-b border-zinc-200 dark:border-zinc-800">
                     <div className="flex items-center space-x-3 min-w-0">
                       <div
-                        className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border shadow-xs ${
-                          isCopilotProvider
+                        className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border shadow-xs ${isCopilotProvider
                             ? "bg-zinc-900 border-zinc-700 text-white"
                             : isAntigravityProvider
-                            ? "bg-indigo-950/60 border-indigo-700/60 text-white"
-                            : isCodexProvider
-                            ? "bg-emerald-950/60 border-emerald-700/60 text-white"
-                            : "bg-zinc-100 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-200"
-                        }`}
+                              ? "bg-indigo-950/60 border-indigo-700/60 text-white"
+                              : isCodexProvider
+                                ? "bg-blue-950/60 border-blue-700/60 text-white"
+                                : "bg-zinc-100 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-200"
+                          }`}
                       >
                         {isCopilotProvider ? (
                           <GithubIcon className="w-5 h-5 text-white" />
                         ) : isAntigravityProvider ? (
                           <Rocket className="w-5 h-5 text-indigo-400" />
                         ) : isCodexProvider ? (
-                          <OpenAIIcon className="w-5 h-5 text-emerald-400" />
+                          <OpenAIIcon className="w-5 h-5 text-blue-400" />
                         ) : (
                           <KeyRound className="w-5 h-5 text-indigo-500" />
                         )}
@@ -3534,29 +3533,28 @@ export const UpstreamKeysTab: React.FC = () => {
                             {isCopilotProvider
                               ? "GitHub Copilot Accounts"
                               : isAntigravityProvider
-                              ? "Antigravity Google Accounts"
-                              : isCodexProvider
-                              ? "OpenAI Codex Accounts"
-                              : `${activeConnectionsUpstream.name} Keys`}
+                                ? "Antigravity Google Accounts"
+                                : isCodexProvider
+                                  ? "OpenAI Codex Accounts"
+                                  : `${activeConnectionsUpstream.name} Keys`}
                           </h3>
                           <span
-                            className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider shrink-0 ${
-                              isCopilotProvider
+                            className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider shrink-0 ${isCopilotProvider
                                 ? "bg-zinc-800 text-zinc-200 border border-zinc-700"
                                 : isAntigravityProvider
-                                ? "bg-indigo-500/15 text-indigo-400 border border-indigo-500/30"
-                                : isCodexProvider
-                                ? "bg-emerald-500/15 text-emerald-400 border border-emerald-500/30"
-                                : "bg-zinc-500/10 text-zinc-400 border border-zinc-500/20"
-                            }`}
+                                  ? "bg-indigo-500/15 text-indigo-400 border border-indigo-500/30"
+                                  : isCodexProvider
+                                    ? "bg-blue-500/15 text-blue-400 border border-blue-500/30"
+                                    : "bg-zinc-500/10 text-zinc-400 border border-zinc-500/20"
+                              }`}
                           >
                             {isCopilotProvider
                               ? "OAuth Device Flow"
                               : isAntigravityProvider
-                              ? "Google OAuth"
-                              : isCodexProvider
-                              ? "ChatGPT OAuth"
-                              : activeConnectionsUpstream.provider}
+                                ? "Google OAuth"
+                                : isCodexProvider
+                                  ? "ChatGPT OAuth"
+                                  : activeConnectionsUpstream.provider}
                           </span>
                         </div>
                         <div className="flex items-center space-x-2 text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
@@ -3565,7 +3563,7 @@ export const UpstreamKeysTab: React.FC = () => {
                           </span>
                           <span>•</span>
                           <span className="inline-flex items-center">
-                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5 animate-pulse" />
+                            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mr-1.5 animate-pulse" />
                             {connectionsList.filter((k) => k.isActive).length} of {connectionsList.length} {isAccountProvider ? "accounts active" : "keys active"}
                           </span>
                           {!isAccountProvider && activeConnectionsUpstream.baseUrl && (
@@ -3594,16 +3592,15 @@ export const UpstreamKeysTab: React.FC = () => {
                       <button
                         type="button"
                         onClick={handleToggleRoundRobinInConnections}
-                        className={`h-8 px-2.5 rounded-lg text-xs font-medium inline-flex items-center space-x-1.5 cursor-pointer transition-all border whitespace-nowrap shadow-xs ${
-                          activeConnectionsUpstream.roundRobin !== false
-                            ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/15"
+                        className={`h-8 px-2.5 rounded-lg text-xs font-medium inline-flex items-center space-x-1.5 cursor-pointer transition-all border whitespace-nowrap shadow-xs ${activeConnectionsUpstream.roundRobin !== false
+                            ? "bg-blue-500/10 border-blue-500/30 text-blue-600 dark:text-blue-400 hover:bg-blue-500/15"
                             : "bg-zinc-100 dark:bg-zinc-800/80 border-zinc-200 dark:border-zinc-700 text-zinc-500 dark:text-zinc-400"
-                        }`}
+                          }`}
                         title="Toggle round-robin load balancing across active keys"
                       >
                         <RotateCw className="w-3 h-3" />
                         <span>Round-Robin: {activeConnectionsUpstream.roundRobin !== false ? "ON" : "OFF"}</span>
-                        <span className={`w-1.5 h-1.5 rounded-full ${activeConnectionsUpstream.roundRobin !== false ? "bg-emerald-500 shadow-xs shadow-emerald-500/50" : "bg-zinc-400"}`} />
+                        <span className={`w-1.5 h-1.5 rounded-full ${activeConnectionsUpstream.roundRobin !== false ? "bg-blue-500 shadow-xs shadow-blue-500/50" : "bg-zinc-400"}`} />
                       </button>
 
                       <button
@@ -3637,9 +3634,8 @@ export const UpstreamKeysTab: React.FC = () => {
                           setMassImportError("");
                           setMassImportSuccess("");
                         }}
-                        className={`skeuo-btn h-8 px-2.5 rounded-lg text-xs font-medium inline-flex items-center space-x-1.5 cursor-pointer whitespace-nowrap shadow-xs ${
-                          isMassImportOpen ? "border-indigo-500 text-indigo-500" : "text-zinc-600 dark:text-zinc-400"
-                        }`}
+                        className={`skeuo-btn h-8 px-2.5 rounded-lg text-xs font-medium inline-flex items-center space-x-1.5 cursor-pointer whitespace-nowrap shadow-xs ${isMassImportOpen ? "border-indigo-500 text-indigo-500" : "text-zinc-600 dark:text-zinc-400"
+                          }`}
                         title="Import multiple credentials in bulk"
                       >
                         <UploadCloud className="w-3.5 h-3.5" />
@@ -3652,9 +3648,8 @@ export const UpstreamKeysTab: React.FC = () => {
                           setIsAddingConnection(!isAddingConnection);
                           setIsMassImportOpen(false);
                         }}
-                        className={`skeuo-btn h-8 px-2.5 rounded-lg text-xs font-medium inline-flex items-center space-x-1.5 cursor-pointer whitespace-nowrap shadow-xs ${
-                          isAddingConnection ? "border-indigo-500 text-indigo-500" : "text-zinc-600 dark:text-zinc-400"
-                        }`}
+                        className={`skeuo-btn h-8 px-2.5 rounded-lg text-xs font-medium inline-flex items-center space-x-1.5 cursor-pointer whitespace-nowrap shadow-xs ${isAddingConnection ? "border-indigo-500 text-indigo-500" : "text-zinc-600 dark:text-zinc-400"
+                          }`}
                         title="Add account token or key manually"
                       >
                         <Plus className="w-3.5 h-3.5" />
@@ -3687,7 +3682,7 @@ export const UpstreamKeysTab: React.FC = () => {
                         <button
                           type="button"
                           onClick={() => startCodexOAuth(activeConnectionsUpstream)}
-                          className="h-8 px-3 rounded-lg text-xs font-bold inline-flex items-center space-x-1.5 cursor-pointer bg-emerald-600 text-white hover:bg-emerald-500 shadow-xs whitespace-nowrap transition-transform active:scale-95"
+                          className="h-8 px-3 rounded-lg text-xs font-bold inline-flex items-center space-x-1.5 cursor-pointer bg-blue-600 text-white hover:bg-blue-500 shadow-xs whitespace-nowrap transition-transform active:scale-95"
                           title="Connect an OpenAI account via OAuth"
                         >
                           <OpenAIIcon className="w-3.5 h-3.5" />
@@ -3730,7 +3725,7 @@ export const UpstreamKeysTab: React.FC = () => {
                 )}
 
                 {massImportSuccess && (
-                  <div className="text-[11px] text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 p-2 rounded flex items-center space-x-1.5">
+                  <div className="text-[11px] text-blue-600 dark:text-blue-400 bg-blue-500/10 border border-blue-500/20 p-2 rounded flex items-center space-x-1.5">
                     <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />
                     <span>{massImportSuccess}</span>
                   </div>
@@ -4000,22 +3995,21 @@ export const UpstreamKeysTab: React.FC = () => {
                             className="rounded border-zinc-300 dark:border-zinc-700 text-indigo-600 focus:ring-indigo-500 cursor-pointer shrink-0"
                           />
                           <div
-                            className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 border shadow-xs ${
-                              isCop
+                            className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 border shadow-xs ${isCop
                                 ? "bg-zinc-800 text-white border-zinc-700"
                                 : isAnti
-                                ? "bg-indigo-950/40 text-indigo-400 border-indigo-800/40"
-                                : isCdx
-                                ? "bg-emerald-950/40 text-emerald-400 border-emerald-800/40"
-                                : "bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-200 border-zinc-200 dark:border-zinc-700"
-                            }`}
+                                  ? "bg-indigo-950/40 text-indigo-400 border-indigo-800/40"
+                                  : isCdx
+                                    ? "bg-blue-950/40 text-blue-400 border-blue-800/40"
+                                    : "bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-200 border-zinc-200 dark:border-zinc-700"
+                              }`}
                           >
                             {isCop ? (
                               <GithubIcon className="w-4 h-4" />
                             ) : isAnti ? (
                               <Rocket className="w-4 h-4 text-indigo-400" />
                             ) : isCdx ? (
-                              <OpenAIIcon className="w-4 h-4 text-emerald-400" />
+                              <OpenAIIcon className="w-4 h-4 text-blue-400" />
                             ) : (
                               <KeyRound className="w-4 h-4" />
                             )}
@@ -4038,7 +4032,7 @@ export const UpstreamKeysTab: React.FC = () => {
                                 <button
                                   type="button"
                                   onClick={() => handleSaveRenameKey(conn.id)}
-                                  className="p-1 rounded text-emerald-500 hover:bg-emerald-500/10 cursor-pointer"
+                                  className="p-1 rounded text-blue-500 hover:bg-blue-500/10 cursor-pointer"
                                   title="Save Name"
                                 >
                                   <Check className="w-3.5 h-3.5" />
@@ -4074,12 +4068,12 @@ export const UpstreamKeysTab: React.FC = () => {
                                 </button>
                                 <span
                                   className={`inline-flex items-center px-1.5 py-0.2 rounded text-[10px] font-semibold ${conn.isActive
-                                    ? "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30"
+                                    ? "bg-blue-500/15 text-blue-600 dark:text-blue-400 border border-blue-500/30"
                                     : "bg-zinc-500/15 text-zinc-500 dark:text-zinc-400 border border-zinc-500/30"
                                     }`}
                                 >
                                   <span
-                                    className={`w-1.5 h-1.5 rounded-full mr-1 ${conn.isActive ? "bg-emerald-500 animate-pulse" : "bg-zinc-400"
+                                    className={`w-1.5 h-1.5 rounded-full mr-1 ${conn.isActive ? "bg-blue-500 animate-pulse" : "bg-zinc-400"
                                       }`}
                                   />
                                   {conn.isActive ? "active" : "disabled"}
@@ -4114,7 +4108,7 @@ export const UpstreamKeysTab: React.FC = () => {
                                   className="p-0.5 rounded text-zinc-400 hover:text-zinc-200 cursor-pointer"
                                   title="Copy Token"
                                 >
-                                  {copiedKeyId === conn.id ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
+                                  {copiedKeyId === conn.id ? <Check className="w-3 h-3 text-blue-400" /> : <Copy className="w-3 h-3" />}
                                 </button>
                               )}
                             </div>
@@ -4125,14 +4119,14 @@ export const UpstreamKeysTab: React.FC = () => {
                           {testInfo && !testInfo.testing && (
                             <span
                               className={`text-[10px] font-semibold px-2 py-0.5 rounded flex items-center space-x-1 ${testInfo.success
-                                ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20"
+                                ? "bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20"
                                 : "bg-red-500/10 text-red-600 dark:text-red-400 border border-red-500/20"
                                 }`}
                               title={testInfo.error}
                             >
                               {testInfo.success ? (
                                 <>
-                                  <CheckCircle2 className="w-3 h-3 text-emerald-500" />
+                                  <CheckCircle2 className="w-3 h-3 text-blue-500" />
                                   <span>{testInfo.latencyMs}ms</span>
                                 </>
                               ) : (
@@ -4169,16 +4163,14 @@ export const UpstreamKeysTab: React.FC = () => {
                             role="switch"
                             aria-checked={conn.isActive}
                             onClick={() => handleToggleConnectionKey(conn.id, conn.isActive)}
-                            className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
-                              conn.isActive ? "bg-emerald-500" : "bg-zinc-300 dark:bg-zinc-700"
-                            }`}
+                            className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${conn.isActive ? "bg-blue-500" : "bg-zinc-300 dark:bg-zinc-700"
+                              }`}
                             title={conn.isActive ? "Disable this account" : "Enable this account"}
                           >
                             <span
                               aria-hidden="true"
-                              className={`pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow-md ring-0 transition duration-200 ease-in-out ${
-                                conn.isActive ? "translate-x-4" : "translate-x-0"
-                              }`}
+                              className={`pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow-md ring-0 transition duration-200 ease-in-out ${conn.isActive ? "translate-x-4" : "translate-x-0"
+                                }`}
                             />
                           </button>
                         </div>
@@ -4241,7 +4233,7 @@ export const UpstreamKeysTab: React.FC = () => {
                   title="Close"
                 />
                 <span className="w-3 h-3 rounded-full bg-amber-500/80 inline-block" />
-                <span className="w-3 h-3 rounded-full bg-emerald-500/80 inline-block" />
+                <span className="w-3 h-3 rounded-full bg-blue-500/80 inline-block" />
               </div>
               <div>
                 <h3 className="text-sm font-bold text-zinc-900 dark:text-zinc-100">
@@ -4333,7 +4325,7 @@ export const UpstreamKeysTab: React.FC = () => {
                   >
                     <div className="flex items-center space-x-2.5 min-w-0 pr-2">
                       <span
-                        className={`w-2 h-2 rounded-full shrink-0 ${m.enabled ? "bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.6)]" : "bg-zinc-500/40"
+                        className={`w-2 h-2 rounded-full shrink-0 ${m.enabled ? "bg-blue-500 shadow-[0_0_6px_rgba(16,185,129,0.6)]" : "bg-zinc-500/40"
                           }`}
                       />
                       <div className="min-w-0">
@@ -4346,7 +4338,7 @@ export const UpstreamKeysTab: React.FC = () => {
                     <div className="flex items-center space-x-3 shrink-0">
                       <span
                         className={`text-[10px] font-semibold px-2 py-0.5 rounded ${m.enabled
-                          ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20"
+                          ? "bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20"
                           : "bg-zinc-200/60 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400"
                           }`}
                       >
@@ -4360,7 +4352,7 @@ export const UpstreamKeysTab: React.FC = () => {
                         disabled={togglingModelId === m.id}
                         onClick={() => handleToggleModel(m.id, m.enabled)}
                         className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border border-zinc-700/50 transition-colors duration-150 ease-in-out focus:outline-none ${m.enabled
-                          ? "bg-emerald-600 shadow-[inset_0_1px_2px_rgba(0,0,0,0.3)]"
+                          ? "bg-blue-600 shadow-[inset_0_1px_2px_rgba(0,0,0,0.3)]"
                           : "bg-zinc-300 dark:bg-zinc-800"
                           }`}
                       >
@@ -4473,11 +4465,10 @@ export const UpstreamKeysTab: React.FC = () => {
                         setTimeout(() => setCopilotCopied(false), 3000);
                       } catch (e) { }
                     }}
-                    className={`px-3.5 py-1.5 rounded-md text-xs font-semibold inline-flex items-center space-x-1.5 cursor-pointer transition-colors shadow-xs ${
-                      copilotCopied
-                        ? "bg-emerald-500 text-white"
+                    className={`px-3.5 py-1.5 rounded-md text-xs font-semibold inline-flex items-center space-x-1.5 cursor-pointer transition-colors shadow-xs ${copilotCopied
+                        ? "bg-blue-500 text-white"
                         : "bg-zinc-200 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 hover:bg-zinc-300 dark:hover:bg-zinc-700 border border-zinc-300/60 dark:border-zinc-700"
-                    }`}
+                      }`}
                   >
                     {copilotCopied ? (
                       <>
@@ -4521,7 +4512,7 @@ export const UpstreamKeysTab: React.FC = () => {
                   {copilotStatus === "polling" && (
                     <div className="space-y-2">
                       <div className="flex items-center justify-center space-x-2 text-xs text-zinc-500 dark:text-zinc-400">
-                        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
+                        <span className="w-2 h-2 rounded-full bg-blue-500 animate-ping" />
                         <span className="text-[11px]">{copilotStatusText}</span>
                       </div>
                       <button
@@ -4531,14 +4522,14 @@ export const UpstreamKeysTab: React.FC = () => {
                         className="skeuo-btn px-3 py-1.5 rounded-lg text-xs font-semibold inline-flex items-center space-x-1.5 cursor-pointer disabled:opacity-50 shadow-xs"
                         title="Click to check right away if you just approved on GitHub"
                       >
-                        <RefreshCw className={`w-3.5 h-3.5 ${copilotChecking ? "animate-spin text-emerald-500" : ""}`} />
+                        <RefreshCw className={`w-3.5 h-3.5 ${copilotChecking ? "animate-spin text-blue-500" : ""}`} />
                         <span>{copilotChecking ? "Checking authorization..." : "Check Authorization Now"}</span>
                       </button>
                     </div>
                   )}
                   {copilotStatus === "success" && (
-                    <div className="flex items-center justify-center space-x-2 text-xs text-emerald-600 dark:text-emerald-400 font-bold animate-in fade-in py-1">
-                      <CheckCircle2 className="w-4.5 h-4.5 text-emerald-500" />
+                    <div className="flex items-center justify-center space-x-2 text-xs text-blue-600 dark:text-blue-400 font-bold animate-in fade-in py-1">
+                      <CheckCircle2 className="w-4.5 h-4.5 text-blue-500" />
                       <span>{copilotStatusText}</span>
                     </div>
                   )}
@@ -4677,8 +4668,8 @@ export const UpstreamKeysTab: React.FC = () => {
                 {/* Status indicator */}
                 {antigravityStatus === "success" && (
                   <div className="pt-2 border-t border-zinc-200 dark:border-zinc-800 text-center">
-                    <div className="flex items-center justify-center space-x-2 text-xs text-emerald-600 dark:text-emerald-400 font-bold animate-in fade-in">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+                    <div className="flex items-center justify-center space-x-2 text-xs text-blue-600 dark:text-blue-400 font-bold animate-in fade-in">
+                      <CheckCircle2 className="w-4 h-4 text-blue-500" />
                       <span>{antigravityStatusText}</span>
                     </div>
                   </div>
@@ -4711,13 +4702,13 @@ export const UpstreamKeysTab: React.FC = () => {
           >
             <div className="flex items-center justify-between pb-3 border-b border-zinc-200 dark:border-zinc-800">
               <div className="flex items-center space-x-2.5">
-                <div className="w-8 h-8 rounded-lg bg-emerald-600 text-white flex items-center justify-center border border-emerald-500 shadow-xs">
+                <div className="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center border border-blue-500 shadow-xs">
                   <OpenAIIcon className="w-4 h-4 text-white" />
                 </div>
                 <div>
                   <h3 className="text-sm font-bold text-zinc-900 dark:text-zinc-100 flex items-center space-x-1.5">
                     <span>Connect OpenAI Codex</span>
-                    <span className="text-[10px] px-1.5 py-0.2 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold border border-emerald-500/20">
+                    <span className="text-[10px] px-1.5 py-0.2 rounded bg-blue-500/10 text-blue-600 dark:text-blue-400 font-semibold border border-blue-500/20">
                       OAuth PKCE
                     </span>
                   </h3>
@@ -4736,7 +4727,7 @@ export const UpstreamKeysTab: React.FC = () => {
 
             {codexLoading && codexStatus === "idle" ? (
               <div className="py-10 text-center space-y-3">
-                <Loader2 className="w-8 h-8 mx-auto animate-spin text-emerald-500" />
+                <Loader2 className="w-8 h-8 mx-auto animate-spin text-blue-500" />
                 <p className="text-xs text-zinc-500 dark:text-zinc-400">
                   {codexStatusText || "Starting local listener and generating authorization link..."}
                 </p>
@@ -4764,20 +4755,20 @@ export const UpstreamKeysTab: React.FC = () => {
                     href={codexAuthUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="w-full py-2.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center space-x-2 shadow-sm cursor-pointer transition-all"
+                    className="w-full py-2.5 px-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs flex items-center justify-center space-x-2 shadow-sm cursor-pointer transition-all"
                   >
                     <OpenAIIcon className="w-4 h-4 text-white" />
                     <span>Open OpenAI Authorization Page</span>
                     <ExternalLink className="w-3.5 h-3.5 opacity-80" />
                   </a>
                   <div className="p-2.5 rounded-lg bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-[11px] text-zinc-600 dark:text-zinc-400 flex items-start space-x-2">
-                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping mt-1 shrink-0" />
+                    <span className="w-2 h-2 rounded-full bg-blue-500 animate-ping mt-1 shrink-0" />
                     <div>
                       <p className="font-semibold text-zinc-800 dark:text-zinc-200">
                         Automatic Callback Listener Active
                       </p>
                       <p className="text-[10px] mt-0.5">
-                        Listening on <code className="text-emerald-600 dark:text-emerald-400 font-mono">http://localhost:{codexLocalPort}</code>. Once approved in your browser, Neko-Router will automatically complete the connection!
+                        Listening on <code className="text-blue-600 dark:text-blue-400 font-mono">http://localhost:{codexLocalPort}</code>. Once approved in your browser, Rizuu-Router will automatically complete the connection!
                       </p>
                     </div>
                   </div>
@@ -4796,7 +4787,7 @@ export const UpstreamKeysTab: React.FC = () => {
                         setCodexError("");
                       }}
                       placeholder="Paste redirected callback URL (http://localhost:1455/auth/callback?code=...), code parameter, or active ChatGPT session token"
-                      className="w-full h-20 px-3 py-2 text-xs font-mono rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                      className="w-full h-20 px-3 py-2 text-xs font-mono rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-1 focus:ring-blue-500"
                     />
                     {codexError && (
                       <p className="text-[11px] text-red-500 font-medium">{codexError}</p>
@@ -4825,8 +4816,8 @@ export const UpstreamKeysTab: React.FC = () => {
                 {/* Status indicator */}
                 {codexStatus === "success" && (
                   <div className="pt-2 border-t border-zinc-200 dark:border-zinc-800 text-center">
-                    <div className="flex items-center justify-center space-x-2 text-xs text-emerald-600 dark:text-emerald-400 font-bold animate-in fade-in">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+                    <div className="flex items-center justify-center space-x-2 text-xs text-blue-600 dark:text-blue-400 font-bold animate-in fade-in">
+                      <CheckCircle2 className="w-4 h-4 text-blue-500" />
                       <span>{codexStatusText}</span>
                     </div>
                   </div>
@@ -4868,7 +4859,7 @@ export const UpstreamKeysTab: React.FC = () => {
                     title="Close"
                   />
                   <span className="w-3 h-3 rounded-full bg-amber-500/80 inline-block" />
-                  <span className="w-3 h-3 rounded-full bg-emerald-500/80 inline-block" />
+                  <span className="w-3 h-3 rounded-full bg-blue-500/80 inline-block" />
                 </div>
                 <div>
                   <div className="flex items-center space-x-2">
@@ -4899,7 +4890,7 @@ export const UpstreamKeysTab: React.FC = () => {
                       <span>Direct Pass-Through Active ({modalLinkedKeys.length} Secret Key{modalLinkedKeys.length > 1 ? "s" : ""} Linked)</span>
                     </div>
                     <p className="text-zinc-300 text-[11px] leading-relaxed">
-                      Requests to BandelBanget models are forwarded transparently using client-supplied credentials (pass-through). Model validation is 100% bypassed to follow upstream directly. <strong>Neko-Router does not require, store, or rotate API keys</strong> for this mode.
+                      Requests to BandelBanget models are forwarded transparently using client-supplied credentials (pass-through). Model validation is 100% bypassed to follow upstream directly. <strong>Rizuu-Router does not require, store, or rotate API keys</strong> for this mode.
                     </p>
                   </div>
                 );
@@ -4908,8 +4899,8 @@ export const UpstreamKeysTab: React.FC = () => {
               if (passThroughUpstream) {
                 return (
                   <div className="p-4 rounded-xl bg-zinc-900/40 border border-zinc-800 text-xs space-y-2">
-                    <div className="flex items-center space-x-2 text-emerald-400 font-bold">
-                      <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                    <div className="flex items-center space-x-2 text-blue-400 font-bold">
+                      <span className="w-2 h-2 rounded-full bg-blue-500" />
                       <span>Pass-Through Ready</span>
                     </div>
                     <p className="text-zinc-400 text-[11px] leading-relaxed">
@@ -4947,8 +4938,8 @@ export const UpstreamKeysTab: React.FC = () => {
                 <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider block">
                   Auth Mode
                 </span>
-                <span className="text-emerald-500 font-semibold text-[11px] flex items-center space-x-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1 animate-pulse" />
+                <span className="text-blue-500 font-semibold text-[11px] flex items-center space-x-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mr-1 animate-pulse" />
                   <span>Client-supplied Token (Zero Keys)</span>
                 </span>
               </div>
@@ -4970,7 +4961,7 @@ export const UpstreamKeysTab: React.FC = () => {
                   type="button"
                   onClick={handleEnablePassThrough}
                   disabled={passThroughLoading}
-                  className="skeuo-btn-primary px-4 py-1.5 rounded-md text-xs font-semibold cursor-pointer text-white bg-emerald-600 hover:bg-emerald-500"
+                  className="skeuo-btn-primary px-4 py-1.5 rounded-md text-xs font-semibold cursor-pointer text-white bg-blue-600 hover:bg-blue-500"
                 >
                   {passThroughLoading ? "Enabling..." : "Enable Pass-Through"}
                 </button>

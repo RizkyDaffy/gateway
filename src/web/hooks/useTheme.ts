@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 export function useTheme() {
   const [theme, setTheme] = useState<"light" | "dark">(() => {
-    const saved = localStorage.getItem("neko_theme");
+    const saved = localStorage.getItem("rizuu_theme");
     if (saved === "light" || saved === "dark") return saved;
     return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
       ? "dark"
@@ -21,7 +21,7 @@ export function useTheme() {
       body.classList.remove("dark");
       root.setAttribute("data-theme", "light");
     }
-    localStorage.setItem("neko_theme", theme);
+    localStorage.setItem("rizuu_theme", theme);
   }, [theme]);
 
   const toggleTheme = () => {

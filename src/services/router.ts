@@ -20,7 +20,7 @@ export function parseUpstreamModels(modelsJson?: string | null): ModelConfig[] {
   try {
     const parsed = JSON.parse(modelsJson);
     if (Array.isArray(parsed)) return parsed;
-  } catch (e) {}
+  } catch (e) { }
   return [];
 }
 
@@ -71,7 +71,7 @@ export function parseUpstreamKeyEntries(
         });
         return result;
       }
-    } catch (e) {}
+    } catch (e) { }
   }
 
   if (
@@ -162,7 +162,7 @@ export function parseAllowedProviders(allowedJson?: string | null): string[] {
   try {
     const parsed = JSON.parse(allowedJson);
     if (Array.isArray(parsed)) return parsed.map(String);
-  } catch (e) {}
+  } catch (e) { }
   return [];
 }
 
@@ -246,7 +246,7 @@ function collectSelfHosts(reqHeaders?: Headers): Set<string> {
   return hosts;
 }
 
-// Detects an upstream whose Base URL points back to Neko-Router itself. Routing a
+// Detects an upstream whose Base URL points back to Rizuu-Router itself. Routing a
 // request there causes an infinite self-loop, which the telemetry parser records as
 // duplicated traffic until the request times out.
 export function isSelfReferencingUpstream(
@@ -310,7 +310,7 @@ export function selectUpstreamCandidates(
     return {
       upstreams: [],
       error: "no_upstreams",
-      message: `No active ${provider.toUpperCase()} upstream providers configured in Neko-Router.`,
+      message: `No active ${provider.toUpperCase()} upstream providers configured in Rizuu-Router.`,
     };
   }
 
@@ -323,7 +323,7 @@ export function selectUpstreamCandidates(
       return {
         upstreams: [],
         error: "no_allowed_providers",
-        message: `Client Key "${clientKey.name}" has no permitted upstream providers (Default: OFF all providers). Please enable providers for this key in the Neko-Router dashboard.`,
+        message: `Client Key "${clientKey.name}" has no permitted upstream providers (Default: OFF all providers). Please enable providers for this key in the Rizuu-Router dashboard.`,
       };
     }
 

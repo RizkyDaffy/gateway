@@ -1,4 +1,4 @@
-# Graph Report - Neko-Router  (2026-09-19)
+# Graph Report - Rizuu-Router  (2026-09-19)
 
 ## Corpus Check
 - 53 files · ~78,534 words
@@ -20,7 +20,7 @@
 - schema.ts
 - rules/graphify.md
 - workflows/graphify.md
-- Neko-Router
+- Rizuu-Router
 - brandkit/SKILL.md
 - App.tsx
 - upstreams.ts
@@ -36,7 +36,7 @@
 - B.2 Router Integration API Keys (`/api/router-keys`)
 - A. Authentication & PIN Endpoints
 - 5. Router Management APIs
-- Neko-Router API Documentation
+- Rizuu-Router API Documentation
 - services/proxy.ts
 - F. Database & System Endpoints
 - graphify.js
@@ -85,7 +85,7 @@ Nodes (32): drizzle-kit, devDependencies, drizzle-kit, tailwindcss, @tailwindcss
 Cohesion: 0.08
 Nodes (41): db, ApiKey, apiKeys, ClientKey, clientKeys, InsertApiKey, InsertClientKey, ResponseCache (+33 more)
 
-### Community 5 - "Neko-Router"
+### Community 5 - "Rizuu-Router"
 Cohesion: 0.14
 Nodes (13): 1. Local Development, 1. OpenAI SDK (Python), 2. Anthropic Claude SDK (TypeScript / Node), 3. cURL Stream Passthrough, API Usage Examples, Docker Deployment, Endpoints Summary, Features (+5 more)
 
@@ -141,9 +141,9 @@ Nodes (5): 1. Check Authentication Status, 2. Login with 6-Digit Master PIN, 3. 
 Cohesion: 0.25
 Nodes (8): 1. Aggregated Usage, Cached Tokens & Latency Metrics, 1. Get Active Optimizer & Security Configuration, 2. Recent Request Telemetry Logs, 2. Update Global Optimizer & Security Configuration, 3. Purge Exact Response Cache, 5. Router Management APIs, D. Telemetry & Token Logs Endpoints, F. Global Prompt & Token Optimizers
 
-### Community 22 - "Neko-Router API Documentation"
+### Community 22 - "Rizuu-Router API Documentation"
 Cohesion: 0.07
-Nodes (29): 1. Installation:, 1. OpenAI Streaming:, 1. Overview & Base URLs, 2. Anthropic Non-Streaming:, 2. Authentication Mechanisms, 2. Usage with Neko-Router `App` Type:, 3. AI Proxy Endpoints, 4. SDK Integration Guides (+21 more)
+Nodes (29): 1. Installation:, 1. OpenAI Streaming:, 1. Overview & Base URLs, 2. Anthropic Non-Streaming:, 2. Authentication Mechanisms, 2. Usage with Rizuu-Router `App` Type:, 3. AI Proxy Endpoints, 4. SDK Integration Guides (+21 more)
 
 ### Community 23 - "services/proxy.ts"
 Cohesion: 0.12
@@ -169,9 +169,9 @@ Nodes (3): plugin, $schema, .opencode/plugins/graphify.js
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `5. Router Management APIs` connect `5. Router Management APIs` to `C. Upstream Router Keys Endpoints`, `E. Upstream Router Providers & Multi-Key Pool`, `B. Client Keys Endpoints`, `B.2 Router Integration API Keys (`/api/router-keys`)`, `A. Authentication & PIN Endpoints`, `Neko-Router API Documentation`, `F. Database & System Endpoints`?**
+- **Why does `5. Router Management APIs` connect `5. Router Management APIs` to `C. Upstream Router Keys Endpoints`, `E. Upstream Router Providers & Multi-Key Pool`, `B. Client Keys Endpoints`, `B.2 Router Integration API Keys (`/api/router-keys`)`, `A. Authentication & PIN Endpoints`, `Rizuu-Router API Documentation`, `F. Database & System Endpoints`?**
   _High betweenness centrality (0.018) - this node is a cross-community bridge._
-- **Why does `Neko-Router API Documentation` connect `Neko-Router API Documentation` to `5. Router Management APIs`?**
+- **Why does `Rizuu-Router API Documentation` connect `Rizuu-Router API Documentation` to `5. Router Management APIs`?**
   _High betweenness centrality (0.013) - this node is a cross-community bridge._
 - **Why does `dependencies` connect `dependencies` to `devDependencies`?**
   _High betweenness centrality (0.007) - this node is a cross-community bridge._

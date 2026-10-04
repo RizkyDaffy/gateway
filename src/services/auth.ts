@@ -7,9 +7,9 @@ export function getJwtSecret(): string {
     const row = sqlite
       .query("SELECT value FROM settings WHERE key = 'jwt_secret'")
       .get() as { value: string } | null;
-    return row?.value || process.env.JWT_SECRET || "neko-router-default-secret-key-32";
+    return row?.value || process.env.JWT_SECRET || "rizuu-router-default-secret-key-32";
   } catch (e) {
-    return process.env.JWT_SECRET || "neko-router-default-secret-key-32";
+    return process.env.JWT_SECRET || "rizuu-router-default-secret-key-32";
   }
 }
 
@@ -171,7 +171,7 @@ export async function validateApiKey(
       .set({ lastUsedAt: Date.now() })
       .where(eq(apiKeys.id, keyRecord.id))
       .run();
-  } catch (e) {}
+  } catch (e) { }
 
   return keyRecord;
 }
@@ -193,12 +193,12 @@ export async function validateClientKey(
         .set({ lastUsedAt: Date.now() })
         .where(eq(clientKeys.id, keyRecord.id))
         .run();
-    } catch (e) {}
+    } catch (e) { }
     return keyRecord;
   }
 
-  // Jika key menggunakan format internal sk-neko- tetapi tidak ditemukan di DB, maka invalid
-  if (providedKey.startsWith("sk-neko-")) {
+  // Jika key menggunakan format internal sk-rizuu- tetapi tidak ditemukan di DB, maka invalid
+  if (providedKey.startsWith("sk-rizuu-")) {
     return null;
   }
 
@@ -236,7 +236,7 @@ export async function validateClientKey(
               }
             }
           }
-        } catch (e) {}
+        } catch (e) { }
       }
       if (isKnownUpstreamKey) break;
     }
@@ -255,7 +255,7 @@ export async function validateClientKey(
           .set({ lastUsedAt: Date.now() })
           .where(eq(clientKeys.id, followClientKey.id))
           .run();
-      } catch (e) {}
+      } catch (e) { }
       return {
         ...followClientKey,
         key: providedKey,

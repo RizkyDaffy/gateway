@@ -20,7 +20,7 @@ export const clientKeys = sqliteTable("client_keys", {
   id: text("id").primaryKey(),
   apiKeyId: text("api_key_id"), // Parent API Key (1 API Key has many Secret Keys)
   name: text("name").notNull(),
-  key: text("key").notNull().unique(), // sk-neko-xxxx (Secret Key used for AI Proxy requests)
+  key: text("key").notNull().unique(), // sk-rizuu-xxxx (Secret Key used for AI Proxy requests)
   isActive: integer("is_active").notNull().default(1),
   rateLimit: integer("rate_limit"), // requests per minute
   tokenLimit: integer("token_limit"), // maximum total tokens allowed (token quota limiter)

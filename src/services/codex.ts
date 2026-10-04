@@ -326,7 +326,7 @@ export function startCodexCallbackServer(
         res.end(
           renderResultPage(
             true,
-            `Connected successfully as ${tokens.email || "OpenAI Account"}! You can return to Neko-Router.`
+            `Connected successfully as ${tokens.email || "OpenAI Account"}! You can return to Rizuu-Router.`
           )
         );
       } catch (err: any) {

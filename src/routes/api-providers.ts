@@ -168,7 +168,7 @@ export const apiProvidersRoutes = new Elysia({ prefix: "/api/api-providers" })
 
       const { followUpstream } = await ensureBandelBangetProviders();
 
-      // In follow upstream: key is not generated as random sk-neko-!
+      // In follow upstream: key is not generated as random sk-rizuu-!
       // It uses default BB key or valid BB key pass-through
       const id = "ck_" + crypto.randomUUID().replace(/-/g, "");
       const now = Date.now();

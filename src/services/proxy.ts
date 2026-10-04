@@ -107,46 +107,46 @@ export async function proxyOpenAIChatCompletions(
 ): Promise<Response> {
   const startTime = performance.now();
   const requestedModel = (body && typeof body === "object" ? body.model : "") || "unknown";
-const selection = selectUpstreamCandidates(
-  "openai",
-  requestedModel,
-  clientKey,
-  FAILOVER_MAX_PROVIDERS
-);
-const { upstreams: upstreamCandidates, blocked: selfLoopUpstreams } =
-  filterSelfReferencingUpstreams(selection.upstreams, reqHeaders);
+  const selection = selectUpstreamCandidates(
+    "openai",
+    requestedModel,
+    clientKey,
+    FAILOVER_MAX_PROVIDERS
+  );
+  const { upstreams: upstreamCandidates, blocked: selfLoopUpstreams } =
+    filterSelfReferencingUpstreams(selection.upstreams, reqHeaders);
 
-if (upstreamCandidates.length === 0) {
-  if (selfLoopUpstreams.length > 0) {
+  if (upstreamCandidates.length === 0) {
+    if (selfLoopUpstreams.length > 0) {
+      return new Response(
+        JSON.stringify({
+          error: {
+            message:
+              "Upstream provider points back to Rizuu-Router's own endpoint (routing loop detected). Change its Base URL to a real upstream provider.",
+            type: "router_error",
+            code: "upstream_self_loop",
+          },
+        }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
+      );
+    }
+    const isForbidden = selection.error === "no_allowed_providers";
+    const isModelDisabled = selection.error === "model_not_enabled";
     return new Response(
       JSON.stringify({
         error: {
           message:
-            "Upstream provider points back to Neko-Router's own endpoint (routing loop detected). Change its Base URL to a real upstream provider.",
-          type: "router_error",
-          code: "upstream_self_loop",
+            selection.message ||
+            (isModelDisabled
+              ? `Model '${requestedModel}' is not enabled on any active OpenAI upstream provider. Enable it in Upstream Settings.`
+              : "No active OpenAI upstream provider configured in Rizuu-Router"),
+          type: isForbidden ? "permission_error" : isModelDisabled ? "invalid_request_error" : "router_error",
+          code: isForbidden ? "provider_access_denied" : isModelDisabled ? "model_not_enabled" : "no_upstream_key",
         },
       }),
-      { status: 400, headers: { "Content-Type": "application/json" } }
+      { status: isForbidden ? 403 : isModelDisabled ? 400 : 503, headers: { "Content-Type": "application/json" } }
     );
   }
-  const isForbidden = selection.error === "no_allowed_providers";
-  const isModelDisabled = selection.error === "model_not_enabled";
-  return new Response(
-    JSON.stringify({
-      error: {
-        message:
-          selection.message ||
-          (isModelDisabled
-            ? `Model '${requestedModel}' is not enabled on any active OpenAI upstream provider. Enable it in Upstream Settings.`
-            : "No active OpenAI upstream provider configured in Neko-Router"),
-        type: isForbidden ? "permission_error" : isModelDisabled ? "invalid_request_error" : "router_error",
-        code: isForbidden ? "provider_access_denied" : isModelDisabled ? "model_not_enabled" : "no_upstream_key",
-      },
-    }),
-    { status: isForbidden ? 403 : isModelDisabled ? 400 : 503, headers: { "Content-Type": "application/json" } }
-  );
-}
 
   let upstream: UpstreamKey = upstreamCandidates[0]!;
 
@@ -304,13 +304,13 @@ if (upstreamCandidates.length === 0) {
     };
   }
 
-let isCodex =
-  upstream.baseUrl?.includes("chatgpt.com/backend-api/codex") ||
-  upstream.name.toLowerCase().includes("codex");
+  let isCodex =
+    upstream.baseUrl?.includes("chatgpt.com/backend-api/codex") ||
+    upstream.name.toLowerCase().includes("codex");
 
-let upstreamUrl = isCodex
-  ? (upstream.baseUrl?.trim() || CODEX_CONFIG.BASE_URL)
-  : `${getBaseUrl(upstream)}/chat/completions`;
+  let upstreamUrl = isCodex
+    ? (upstream.baseUrl?.trim() || CODEX_CONFIG.BASE_URL)
+    : `${getBaseUrl(upstream)}/chat/completions`;
 
   const timeoutSeconds = Number(opt.requestTimeoutSeconds) || 0;
   const controller = new AbortController();
@@ -339,10 +339,10 @@ let upstreamUrl = isCodex
     }
   }
 
-const performOpenAIFetch = async (
-  currentUpstreamKey: string
-): Promise<Response> => {
-  let upstreamHeaders: Record<string, string>;
+  const performOpenAIFetch = async (
+    currentUpstreamKey: string
+  ): Promise<Response> => {
+    let upstreamHeaders: Record<string, string>;
 
     const isCopilot =
       upstream.baseUrl?.includes("githubcopilot.com") ||
@@ -408,7 +408,7 @@ const performOpenAIFetch = async (
         const clientAuth = reqHeaders.get("Authorization");
         const clientKeyHeader = reqHeaders.get("x-api-key");
         const passedKey = clientAuth?.startsWith("Bearer ") ? clientAuth.slice(7).trim() : clientKeyHeader?.trim();
-        if (passedKey && !passedKey.startsWith("sk-neko-") && passedKey !== "bb-default") {
+        if (passedKey && !passedKey.startsWith("sk-rizuu-") && passedKey !== "bb-default") {
           authHeaderVal = `Bearer ${passedKey}`;
         } else {
           authHeaderVal = "Bearer bb-default";
@@ -421,156 +421,156 @@ const performOpenAIFetch = async (
       };
     }
 
-  let response = await fetch(upstreamUrl, {
-    method: "POST",
-    headers: upstreamHeaders,
-    body: JSON.stringify(requestPayload),
-    signal: controller.signal,
-  });
+    let response = await fetch(upstreamUrl, {
+      method: "POST",
+      headers: upstreamHeaders,
+      body: JSON.stringify(requestPayload),
+      signal: controller.signal,
+    });
 
-  // If Antigravity returns 401 Unauthorized, force-refresh token and retry once
-  if (isAntigravity && response.status === 401 && antigravityEntry?.refreshToken) {
-    try {
-      const refreshedToken = await forceRefreshAntigravityToken(upstream.id, antigravityEntry);
-      upstreamHeaders.Authorization = `Bearer ${refreshedToken}`;
-      response = await fetch(upstreamUrl, {
-        method: "POST",
-        headers: upstreamHeaders,
-        body: JSON.stringify(requestPayload),
-        signal: controller.signal,
-      });
-    } catch (refreshErr) {
-      // Continue with original response
-    }
-  }
-
-  // If Codex returns 401 Unauthorized, refresh token and retry once
-  if (isCodex && response.status === 401 && codexEntry?.refreshToken) {
-    try {
-      const refreshed = await refreshCodexToken(codexEntry.refreshToken);
-      codexEntry.key = refreshed.accessToken;
-      if (refreshed.refreshToken) codexEntry.refreshToken = refreshed.refreshToken;
-      if (refreshed.expiresAt) codexEntry.expiresAt = refreshed.expiresAt;
-      upstreamHeaders.Authorization = `Bearer ${refreshed.accessToken}`;
-      response = await fetch(upstreamUrl, {
-        method: "POST",
-        headers: upstreamHeaders,
-        body: JSON.stringify(requestPayload),
-        signal: controller.signal,
-      });
-    } catch (refreshErr) {
-      // Continue with original response
-    }
-  }
-
-  return response;
-};
-
-let upstreamResponse!: Response;
-let responseResolved = false;
-let lastAttemptError: any = null;
-let lastErrorResponse: Response | null = null;
-
-providerLoop: for (const candidate of upstreamCandidates) {
-  upstream = candidate;
-  finishActive.setUpstream(candidate.id);
-  isCodex =
-    candidate.baseUrl?.includes("chatgpt.com/backend-api/codex") ||
-    candidate.name.toLowerCase().includes("codex");
-  upstreamUrl = isCodex
-    ? (candidate.baseUrl?.trim() || CODEX_CONFIG.BASE_URL)
-    : `${getBaseUrl(candidate)}/chat/completions`;
-
-  const keyCandidates = buildFailoverKeyCandidates(
-    getApiKeyForUpstream(candidate),
-    getActiveUpstreamKeyEntries(candidate)
-  );
-
-  for (let attempt = 0; attempt < keyCandidates.length; attempt++) {
-    try {
-      const response = await performOpenAIFetch(keyCandidates[attempt]!);
-      if (response.ok) {
-        if (lastErrorResponse) {
-          try {
-            await lastErrorResponse.body?.cancel();
-          } catch (cancelErr) {
-            // Ignore body cancellation failure
-          }
-          lastErrorResponse = null;
-        }
-        upstreamResponse = response;
-        responseResolved = true;
-        break providerLoop;
+    // If Antigravity returns 401 Unauthorized, force-refresh token and retry once
+    if (isAntigravity && response.status === 401 && antigravityEntry?.refreshToken) {
+      try {
+        const refreshedToken = await forceRefreshAntigravityToken(upstream.id, antigravityEntry);
+        upstreamHeaders.Authorization = `Bearer ${refreshedToken}`;
+        response = await fetch(upstreamUrl, {
+          method: "POST",
+          headers: upstreamHeaders,
+          body: JSON.stringify(requestPayload),
+          signal: controller.signal,
+        });
+      } catch (refreshErr) {
+        // Continue with original response
       }
-      if (!isRetryableStatus(response.status)) {
+    }
+
+    // If Codex returns 401 Unauthorized, refresh token and retry once
+    if (isCodex && response.status === 401 && codexEntry?.refreshToken) {
+      try {
+        const refreshed = await refreshCodexToken(codexEntry.refreshToken);
+        codexEntry.key = refreshed.accessToken;
+        if (refreshed.refreshToken) codexEntry.refreshToken = refreshed.refreshToken;
+        if (refreshed.expiresAt) codexEntry.expiresAt = refreshed.expiresAt;
+        upstreamHeaders.Authorization = `Bearer ${refreshed.accessToken}`;
+        response = await fetch(upstreamUrl, {
+          method: "POST",
+          headers: upstreamHeaders,
+          body: JSON.stringify(requestPayload),
+          signal: controller.signal,
+        });
+      } catch (refreshErr) {
+        // Continue with original response
+      }
+    }
+
+    return response;
+  };
+
+  let upstreamResponse!: Response;
+  let responseResolved = false;
+  let lastAttemptError: any = null;
+  let lastErrorResponse: Response | null = null;
+
+  providerLoop: for (const candidate of upstreamCandidates) {
+    upstream = candidate;
+    finishActive.setUpstream(candidate.id);
+    isCodex =
+      candidate.baseUrl?.includes("chatgpt.com/backend-api/codex") ||
+      candidate.name.toLowerCase().includes("codex");
+    upstreamUrl = isCodex
+      ? (candidate.baseUrl?.trim() || CODEX_CONFIG.BASE_URL)
+      : `${getBaseUrl(candidate)}/chat/completions`;
+
+    const keyCandidates = buildFailoverKeyCandidates(
+      getApiKeyForUpstream(candidate),
+      getActiveUpstreamKeyEntries(candidate)
+    );
+
+    for (let attempt = 0; attempt < keyCandidates.length; attempt++) {
+      try {
+        const response = await performOpenAIFetch(keyCandidates[attempt]!);
+        if (response.ok) {
+          if (lastErrorResponse) {
+            try {
+              await lastErrorResponse.body?.cancel();
+            } catch (cancelErr) {
+              // Ignore body cancellation failure
+            }
+            lastErrorResponse = null;
+          }
+          upstreamResponse = response;
+          responseResolved = true;
+          break providerLoop;
+        }
+        if (!isRetryableStatus(response.status)) {
+          if (lastErrorResponse) {
+            try {
+              await lastErrorResponse.body?.cancel();
+            } catch (cancelErr) {
+              // Ignore body cancellation failure
+            }
+          }
+          lastErrorResponse = response;
+          break providerLoop;
+        }
         if (lastErrorResponse) {
           try {
             await lastErrorResponse.body?.cancel();
           } catch (cancelErr) {
-            // Ignore body cancellation failure
+            // Ignore body cancellation failure before failover
           }
         }
         lastErrorResponse = response;
-        break providerLoop;
+        lastAttemptError = null;
+      } catch (err: any) {
+        lastAttemptError = err;
+        if (controller.signal.aborted) break providerLoop;
       }
-      if (lastErrorResponse) {
-        try {
-          await lastErrorResponse.body?.cancel();
-        } catch (cancelErr) {
-          // Ignore body cancellation failure before failover
-        }
-      }
-      lastErrorResponse = response;
-      lastAttemptError = null;
-    } catch (err: any) {
-      lastAttemptError = err;
-      if (controller.signal.aborted) break providerLoop;
     }
   }
-}
 
-if (!responseResolved) {
-  if (lastErrorResponse) {
-    upstreamResponse = lastErrorResponse;
-  } else {
-    if (timeoutTimer) clearTimeout(timeoutTimer);
-    finishActive();
-    const isTimeout = controller.signal.aborted && timeoutSeconds > 0;
-    const durationMs = Math.round(performance.now() - startTime);
-    const statusCode = isTimeout ? 504 : 502;
-    const errorMsg = isTimeout
-      ? `Gateway timeout: Request duration exceeded configured limit of ${timeoutSeconds}s.`
-      : (lastAttemptError?.message || "Failed to reach upstream provider");
+  if (!responseResolved) {
+    if (lastErrorResponse) {
+      upstreamResponse = lastErrorResponse;
+    } else {
+      if (timeoutTimer) clearTimeout(timeoutTimer);
+      finishActive();
+      const isTimeout = controller.signal.aborted && timeoutSeconds > 0;
+      const durationMs = Math.round(performance.now() - startTime);
+      const statusCode = isTimeout ? 504 : 502;
+      const errorMsg = isTimeout
+        ? `Gateway timeout: Request duration exceeded configured limit of ${timeoutSeconds}s.`
+        : (lastAttemptError?.message || "Failed to reach upstream provider");
 
-    recordTelemetry({
-      clientKeyId: clientKey?.id,
-      clientKeyName: clientKey?.name,
-      upstreamKeyId: upstream.id,
-      provider: "openai",
-      endpoint: "/v1/chat/completions",
-      model,
-      promptTokens: 0,
-      completionTokens: 0,
-      cachedTokens: 0,
-      totalTokens: 0,
-      statusCode,
-      durationMs,
-      isStreaming: isStream,
-      errorMessage: errorMsg,
-    });
+      recordTelemetry({
+        clientKeyId: clientKey?.id,
+        clientKeyName: clientKey?.name,
+        upstreamKeyId: upstream.id,
+        provider: "openai",
+        endpoint: "/v1/chat/completions",
+        model,
+        promptTokens: 0,
+        completionTokens: 0,
+        cachedTokens: 0,
+        totalTokens: 0,
+        statusCode,
+        durationMs,
+        isStreaming: isStream,
+        errorMessage: errorMsg,
+      });
 
-    return new Response(
-      JSON.stringify({
-        error: {
-          message: errorMsg,
-          type: isTimeout ? "timeout_error" : "gateway_error",
-          code: isTimeout ? "gateway_timeout" : undefined,
-        },
-      }),
-      { status: statusCode, headers: { "Content-Type": "application/json" } }
-    );
+      return new Response(
+        JSON.stringify({
+          error: {
+            message: errorMsg,
+            type: isTimeout ? "timeout_error" : "gateway_error",
+            code: isTimeout ? "gateway_timeout" : undefined,
+          },
+        }),
+        { status: statusCode, headers: { "Content-Type": "application/json" } }
+      );
+    }
   }
-}
 
   // Handle upstream error
   if (!upstreamResponse.ok) {
@@ -842,46 +842,46 @@ export async function proxyAnthropicMessages(
 ): Promise<Response> {
   const startTime = performance.now();
   const requestedModel = (body && typeof body === "object" ? body.model : "") || "unknown";
-const selection = selectUpstreamCandidates(
-  "anthropic",
-  requestedModel,
-  clientKey,
-  FAILOVER_MAX_PROVIDERS
-);
-const { upstreams: upstreamCandidates, blocked: selfLoopUpstreams } =
-  filterSelfReferencingUpstreams(selection.upstreams, reqHeaders);
+  const selection = selectUpstreamCandidates(
+    "anthropic",
+    requestedModel,
+    clientKey,
+    FAILOVER_MAX_PROVIDERS
+  );
+  const { upstreams: upstreamCandidates, blocked: selfLoopUpstreams } =
+    filterSelfReferencingUpstreams(selection.upstreams, reqHeaders);
 
-if (upstreamCandidates.length === 0) {
-  if (selfLoopUpstreams.length > 0) {
+  if (upstreamCandidates.length === 0) {
+    if (selfLoopUpstreams.length > 0) {
+      return new Response(
+        JSON.stringify({
+          type: "error",
+          error: {
+            type: "router_error",
+            message:
+              "Upstream provider points back to Rizuu-Router's own endpoint (routing loop detected). Change its Base URL to a real upstream provider.",
+          },
+        }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
+      );
+    }
+    const isForbidden = selection.error === "no_allowed_providers";
+    const isModelDisabled = selection.error === "model_not_enabled";
     return new Response(
       JSON.stringify({
         type: "error",
         error: {
-          type: "router_error",
+          type: isForbidden ? "permission_error" : isModelDisabled ? "invalid_request_error" : "router_error",
           message:
-            "Upstream provider points back to Neko-Router's own endpoint (routing loop detected). Change its Base URL to a real upstream provider.",
+            selection.message ||
+            (isModelDisabled
+              ? `Model '${requestedModel}' is not enabled on any active Anthropic upstream provider. Enable it in Upstream Settings.`
+              : "No active Anthropic upstream key configured in Rizuu-Router"),
         },
       }),
-      { status: 400, headers: { "Content-Type": "application/json" } }
+      { status: isForbidden ? 403 : isModelDisabled ? 400 : 503, headers: { "Content-Type": "application/json" } }
     );
   }
-  const isForbidden = selection.error === "no_allowed_providers";
-  const isModelDisabled = selection.error === "model_not_enabled";
-  return new Response(
-    JSON.stringify({
-      type: "error",
-      error: {
-        type: isForbidden ? "permission_error" : isModelDisabled ? "invalid_request_error" : "router_error",
-        message:
-          selection.message ||
-          (isModelDisabled
-            ? `Model '${requestedModel}' is not enabled on any active Anthropic upstream provider. Enable it in Upstream Settings.`
-            : "No active Anthropic upstream key configured in Neko-Router"),
-      },
-    }),
-    { status: isForbidden ? 403 : isModelDisabled ? 400 : 503, headers: { "Content-Type": "application/json" } }
-  );
-}
 
   let upstream: UpstreamKey = upstreamCandidates[0]!;
 
@@ -1041,18 +1041,18 @@ if (upstreamCandidates.length === 0) {
 
   let upstreamUrl = `${getBaseUrl(upstream)}/v1/messages`;
 
-const buildAnthropicHeaders = (apiKey: string): Record<string, string> => {
-  const headerMap: Record<string, string> = {
-    "Content-Type": "application/json",
-    "x-api-key": apiKey,
-    "anthropic-version": reqHeaders.get("anthropic-version") || "2023-06-01",
+  const buildAnthropicHeaders = (apiKey: string): Record<string, string> => {
+    const headerMap: Record<string, string> = {
+      "Content-Type": "application/json",
+      "x-api-key": apiKey,
+      "anthropic-version": reqHeaders.get("anthropic-version") || "2023-06-01",
+    };
+    const anthropicBeta = reqHeaders.get("anthropic-beta");
+    if (anthropicBeta) {
+      headerMap["anthropic-beta"] = anthropicBeta;
+    }
+    return headerMap;
   };
-  const anthropicBeta = reqHeaders.get("anthropic-beta");
-  if (anthropicBeta) {
-    headerMap["anthropic-beta"] = anthropicBeta;
-  }
-  return headerMap;
-};
 
   const timeoutSeconds = Number(opt.requestTimeoutSeconds) || 0;
   const controller = new AbortController();
@@ -1081,111 +1081,111 @@ const buildAnthropicHeaders = (apiKey: string): Record<string, string> => {
     }
   }
 
-let upstreamResponse!: Response;
-let responseResolved = false;
-let lastAttemptError: any = null;
-let lastErrorResponse: Response | null = null;
+  let upstreamResponse!: Response;
+  let responseResolved = false;
+  let lastAttemptError: any = null;
+  let lastErrorResponse: Response | null = null;
 
-providerLoop: for (const candidate of upstreamCandidates) {
-  upstream = candidate;
-  finishActive.setUpstream(candidate.id);
-  upstreamUrl = `${getBaseUrl(candidate)}/v1/messages`;
+  providerLoop: for (const candidate of upstreamCandidates) {
+    upstream = candidate;
+    finishActive.setUpstream(candidate.id);
+    upstreamUrl = `${getBaseUrl(candidate)}/v1/messages`;
 
-  const keyCandidates = buildFailoverKeyCandidates(
-    getApiKeyForUpstream(candidate),
-    getActiveUpstreamKeyEntries(candidate)
-  );
+    const keyCandidates = buildFailoverKeyCandidates(
+      getApiKeyForUpstream(candidate),
+      getActiveUpstreamKeyEntries(candidate)
+    );
 
-  for (let attempt = 0; attempt < keyCandidates.length; attempt++) {
-    try {
-      const response = await fetch(upstreamUrl, {
-        method: "POST",
-        headers: buildAnthropicHeaders(keyCandidates[attempt]!),
-        body: JSON.stringify(optimizedBody),
-        signal: controller.signal,
-      });
-      if (response.ok) {
-        if (lastErrorResponse) {
-          try {
-            await lastErrorResponse.body?.cancel();
-          } catch (cancelErr) {
-            // Ignore body cancellation failure
+    for (let attempt = 0; attempt < keyCandidates.length; attempt++) {
+      try {
+        const response = await fetch(upstreamUrl, {
+          method: "POST",
+          headers: buildAnthropicHeaders(keyCandidates[attempt]!),
+          body: JSON.stringify(optimizedBody),
+          signal: controller.signal,
+        });
+        if (response.ok) {
+          if (lastErrorResponse) {
+            try {
+              await lastErrorResponse.body?.cancel();
+            } catch (cancelErr) {
+              // Ignore body cancellation failure
+            }
+            lastErrorResponse = null;
           }
-          lastErrorResponse = null;
+          upstreamResponse = response;
+          responseResolved = true;
+          break providerLoop;
         }
-        upstreamResponse = response;
-        responseResolved = true;
-        break providerLoop;
-      }
-      if (!isRetryableStatus(response.status)) {
+        if (!isRetryableStatus(response.status)) {
+          if (lastErrorResponse) {
+            try {
+              await lastErrorResponse.body?.cancel();
+            } catch (cancelErr) {
+              // Ignore body cancellation failure
+            }
+          }
+          lastErrorResponse = response;
+          break providerLoop;
+        }
         if (lastErrorResponse) {
           try {
             await lastErrorResponse.body?.cancel();
           } catch (cancelErr) {
-            // Ignore body cancellation failure
+            // Ignore body cancellation failure before failover
           }
         }
         lastErrorResponse = response;
-        break providerLoop;
+        lastAttemptError = null;
+      } catch (err: any) {
+        lastAttemptError = err;
+        if (controller.signal.aborted) break providerLoop;
       }
-      if (lastErrorResponse) {
-        try {
-          await lastErrorResponse.body?.cancel();
-        } catch (cancelErr) {
-          // Ignore body cancellation failure before failover
-        }
-      }
-      lastErrorResponse = response;
-      lastAttemptError = null;
-    } catch (err: any) {
-      lastAttemptError = err;
-      if (controller.signal.aborted) break providerLoop;
     }
   }
-}
 
-if (!responseResolved) {
-  if (lastErrorResponse) {
-    upstreamResponse = lastErrorResponse;
-  } else {
-    if (timeoutTimer) clearTimeout(timeoutTimer);
-    finishActive();
-    const isTimeout = controller.signal.aborted && timeoutSeconds > 0;
-    const durationMs = Math.round(performance.now() - startTime);
-    const statusCode = isTimeout ? 504 : 502;
-    const errorMsg = isTimeout
-      ? `Gateway timeout: Request duration exceeded configured limit of ${timeoutSeconds}s.`
-      : (lastAttemptError?.message || "Failed to reach Anthropic upstream");
+  if (!responseResolved) {
+    if (lastErrorResponse) {
+      upstreamResponse = lastErrorResponse;
+    } else {
+      if (timeoutTimer) clearTimeout(timeoutTimer);
+      finishActive();
+      const isTimeout = controller.signal.aborted && timeoutSeconds > 0;
+      const durationMs = Math.round(performance.now() - startTime);
+      const statusCode = isTimeout ? 504 : 502;
+      const errorMsg = isTimeout
+        ? `Gateway timeout: Request duration exceeded configured limit of ${timeoutSeconds}s.`
+        : (lastAttemptError?.message || "Failed to reach Anthropic upstream");
 
-    recordTelemetry({
-      clientKeyId: clientKey?.id,
-      clientKeyName: clientKey?.name,
-      upstreamKeyId: upstream.id,
-      provider: "anthropic",
-      endpoint: "/v1/messages",
-      model,
-      promptTokens: 0,
-      completionTokens: 0,
-      cachedTokens: 0,
-      totalTokens: 0,
-      statusCode,
-      durationMs,
-      isStreaming: isStream,
-      errorMessage: errorMsg,
-    });
+      recordTelemetry({
+        clientKeyId: clientKey?.id,
+        clientKeyName: clientKey?.name,
+        upstreamKeyId: upstream.id,
+        provider: "anthropic",
+        endpoint: "/v1/messages",
+        model,
+        promptTokens: 0,
+        completionTokens: 0,
+        cachedTokens: 0,
+        totalTokens: 0,
+        statusCode,
+        durationMs,
+        isStreaming: isStream,
+        errorMessage: errorMsg,
+      });
 
-    return new Response(
-      JSON.stringify({
-        type: "error",
-        error: {
-          type: isTimeout ? "timeout_error" : "gateway_error",
-          message: errorMsg,
-        },
-      }),
-      { status: statusCode, headers: { "Content-Type": "application/json" } }
-    );
+      return new Response(
+        JSON.stringify({
+          type: "error",
+          error: {
+            type: isTimeout ? "timeout_error" : "gateway_error",
+            message: errorMsg,
+          },
+        }),
+        { status: statusCode, headers: { "Content-Type": "application/json" } }
+      );
+    }
   }
-}
 
   // Handle upstream error
   if (!upstreamResponse.ok) {
@@ -1450,10 +1450,10 @@ function enrichModel(prefix: string, m: any, defaultCreated?: number) {
     id: fullId,
     object: "model",
     created,
-    owned_by: "NekoRouter",
+    owned_by: "RizuuRouter",
     name: m.name || cleanId,
-    description: m.description || `${cleanId} routed via Neko-Router${prefix ? ` (${prefix})` : ""}`,
-    provider: prefix || m.provider || "NekoRouter",
+    description: m.description || `${cleanId} routed via Rizuu-Router${prefix ? ` (${prefix})` : ""}`,
+    provider: prefix || m.provider || "RizuuRouter",
     type,
     context_window: contextWindow,
     max_tokens: maxTokens,
@@ -1479,7 +1479,7 @@ function enrichModel(prefix: string, m: any, defaultCreated?: number) {
     parent: null,
   };
 
-  // Copy any extra metadata from original, preserving owned_by as NekoRouter
+  // Copy any extra metadata from original, preserving owned_by as RizuuRouter
   for (const [key, val] of Object.entries(m)) {
     if (
       key !== "owned_by" &&
@@ -1533,7 +1533,7 @@ export async function proxyOpenAIModels(
     const targetUrl = targetBase.endsWith("/v1") ? `${targetBase}/models` : `${targetBase}/v1/models`;
 
     let authToSend: string;
-    if (passedKey && passedKey !== "bb-default" && !passedKey.startsWith("sk-neko-")) {
+    if (passedKey && passedKey !== "bb-default" && !passedKey.startsWith("sk-rizuu-")) {
       authToSend = `Bearer ${passedKey}`;
     } else if (followUpstream.apiKey) {
       authToSend = `Bearer ${followUpstream.apiKey}`;
@@ -1556,7 +1556,7 @@ export async function proxyOpenAIModels(
         if (Array.isArray(data?.data)) {
           data.data = data.data.map((m: any) => ({
             ...m,
-            owned_by: "NekoRouter",
+            owned_by: "RizuuRouter",
           }));
         }
         return new Response(JSON.stringify(data), {
@@ -1574,12 +1574,12 @@ export async function proxyOpenAIModels(
     try {
       const { fetchBandelBangetLiveModels } = await import("./bandelbanget");
       const liveModels = await fetchBandelBangetLiveModels();
-      const data = liveModels.map((m) => enrichModel("", { ...m, owned_by: "NekoRouter" }));
+      const data = liveModels.map((m) => enrichModel("", { ...m, owned_by: "RizuuRouter" }));
       return new Response(JSON.stringify({ object: "list", data }), {
         status: 200,
         headers: { "Content-Type": "application/json" },
       });
-    } catch (e) {}
+    } catch (e) { }
   }
 
   const activeOpenAI = getActiveUpstreamKeys("openai");
@@ -1621,11 +1621,11 @@ export async function proxyOpenAIModels(
           const liveModels = await fetchBandelBangetLiveModels();
           for (const lm of liveModels) {
             if (!enabledModelMap.has(lm.id)) {
-              const enriched = enrichModel("", { ...lm, owned_by: "NekoRouter" });
+              const enriched = enrichModel("", { ...lm, owned_by: "RizuuRouter" });
               enabledModelMap.set(lm.id, enriched);
             }
           }
-        } catch (e) {}
+        } catch (e) { }
         continue;
       }
 
@@ -1668,11 +1668,11 @@ export async function proxyOpenAIModels(
       const liveModels = await fetchBandelBangetLiveModels();
       for (const lm of liveModels) {
         if (!enabledModelMap.has(lm.id)) {
-          const enriched = enrichModel("", { ...lm, owned_by: "NekoRouter" });
+          const enriched = enrichModel("", { ...lm, owned_by: "RizuuRouter" });
           enabledModelMap.set(lm.id, enriched);
         }
       }
-    } catch (e) {}
+    } catch (e) { }
   }
 
   const data = Array.from(enabledModelMap.values());

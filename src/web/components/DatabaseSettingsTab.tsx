@@ -231,7 +231,7 @@ export const DatabaseSettingsTab: React.FC = () => {
             <div>
               <h3 className="text-sm font-bold text-zinc-900 dark:text-zinc-100 flex items-center space-x-2">
                 <span>Global Prompt & Token Optimizers</span>
-                <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
                   Global Active
                 </span>
               </h3>
@@ -248,7 +248,7 @@ export const DatabaseSettingsTab: React.FC = () => {
               </span>
             )}
             {cacheClearStatus && (
-              <span className="text-[11px] text-emerald-600 dark:text-emerald-400 font-medium animate-pulse">
+              <span className="text-[11px] text-blue-600 dark:text-blue-400 font-medium animate-pulse">
                 {cacheClearStatus}
               </span>
             )}
@@ -260,7 +260,7 @@ export const DatabaseSettingsTab: React.FC = () => {
           <div className="skeuo-card-subtle p-4 rounded-md space-y-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
-                <Sparkles className="w-4 h-4 text-emerald-500" />
+                <Sparkles className="w-4 h-4 text-blue-500" />
                 <span className="text-xs font-semibold text-zinc-900 dark:text-zinc-100">
                   Response Cache Engine
                 </span>
@@ -270,14 +270,12 @@ export const DatabaseSettingsTab: React.FC = () => {
                 role="switch"
                 aria-checked={optimizations.cacheEnabled}
                 onClick={() => updateOpt({ cacheEnabled: !optimizations.cacheEnabled })}
-                className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border border-zinc-700/50 transition-colors duration-200 ease-in-out focus:outline-none ${
-                  optimizations.cacheEnabled ? "bg-emerald-600 shadow-[inset_0_1px_2px_rgba(0,0,0,0.3)]" : "bg-zinc-300 dark:bg-zinc-800"
-                }`}
+                className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border border-zinc-700/50 transition-colors duration-200 ease-in-out focus:outline-none ${optimizations.cacheEnabled ? "bg-blue-600 shadow-[inset_0_1px_2px_rgba(0,0,0,0.3)]" : "bg-zinc-300 dark:bg-zinc-800"
+                  }`}
               >
                 <span
-                  className={`pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow-sm ring-0 transition duration-200 ease-in-out ${
-                    optimizations.cacheEnabled ? "translate-x-4" : "translate-x-0"
-                  }`}
+                  className={`pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow-sm ring-0 transition duration-200 ease-in-out ${optimizations.cacheEnabled ? "translate-x-4" : "translate-x-0"
+                    }`}
                 />
               </button>
             </div>
@@ -329,14 +327,12 @@ export const DatabaseSettingsTab: React.FC = () => {
                 role="switch"
                 aria-checked={optimizations.rtkCompression}
                 onClick={() => updateOpt({ rtkCompression: !optimizations.rtkCompression })}
-                className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border border-zinc-700/50 transition-colors duration-200 ease-in-out focus:outline-none ${
-                  optimizations.rtkCompression ? "bg-emerald-600 shadow-[inset_0_1px_2px_rgba(0,0,0,0.3)]" : "bg-zinc-300 dark:bg-zinc-800"
-                }`}
+                className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border border-zinc-700/50 transition-colors duration-200 ease-in-out focus:outline-none ${optimizations.rtkCompression ? "bg-blue-600 shadow-[inset_0_1px_2px_rgba(0,0,0,0.3)]" : "bg-zinc-300 dark:bg-zinc-800"
+                  }`}
               >
                 <span
-                  className={`pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow-sm ring-0 transition duration-200 ease-in-out ${
-                    optimizations.rtkCompression ? "translate-x-4" : "translate-x-0"
-                  }`}
+                  className={`pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow-sm ring-0 transition duration-200 ease-in-out ${optimizations.rtkCompression ? "translate-x-4" : "translate-x-0"
+                    }`}
                 />
               </button>
             </div>
@@ -362,14 +358,12 @@ export const DatabaseSettingsTab: React.FC = () => {
                 role="switch"
                 aria-checked={optimizations.cavemanMode}
                 onClick={() => updateOpt({ cavemanMode: !optimizations.cavemanMode })}
-                className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border border-zinc-700/50 transition-colors duration-200 ease-in-out focus:outline-none ${
-                  optimizations.cavemanMode ? "bg-emerald-600 shadow-[inset_0_1px_2px_rgba(0,0,0,0.3)]" : "bg-zinc-300 dark:bg-zinc-800"
-                }`}
+                className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border border-zinc-700/50 transition-colors duration-200 ease-in-out focus:outline-none ${optimizations.cavemanMode ? "bg-blue-600 shadow-[inset_0_1px_2px_rgba(0,0,0,0.3)]" : "bg-zinc-300 dark:bg-zinc-800"
+                  }`}
               >
                 <span
-                  className={`pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow-sm ring-0 transition duration-200 ease-in-out ${
-                    optimizations.cavemanMode ? "translate-x-4" : "translate-x-0"
-                  }`}
+                  className={`pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow-sm ring-0 transition duration-200 ease-in-out ${optimizations.cavemanMode ? "translate-x-4" : "translate-x-0"
+                    }`}
                 />
               </button>
             </div>
@@ -395,14 +389,12 @@ export const DatabaseSettingsTab: React.FC = () => {
                 role="switch"
                 aria-checked={optimizations.minifyPrompt}
                 onClick={() => updateOpt({ minifyPrompt: !optimizations.minifyPrompt })}
-                className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border border-zinc-700/50 transition-colors duration-200 ease-in-out focus:outline-none ${
-                  optimizations.minifyPrompt ? "bg-emerald-600 shadow-[inset_0_1px_2px_rgba(0,0,0,0.3)]" : "bg-zinc-300 dark:bg-zinc-800"
-                }`}
+                className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border border-zinc-700/50 transition-colors duration-200 ease-in-out focus:outline-none ${optimizations.minifyPrompt ? "bg-blue-600 shadow-[inset_0_1px_2px_rgba(0,0,0,0.3)]" : "bg-zinc-300 dark:bg-zinc-800"
+                  }`}
               >
                 <span
-                  className={`pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow-sm ring-0 transition duration-200 ease-in-out ${
-                    optimizations.minifyPrompt ? "translate-x-4" : "translate-x-0"
-                  }`}
+                  className={`pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow-sm ring-0 transition duration-200 ease-in-out ${optimizations.minifyPrompt ? "translate-x-4" : "translate-x-0"
+                    }`}
                 />
               </button>
             </div>
@@ -411,44 +403,42 @@ export const DatabaseSettingsTab: React.FC = () => {
             </p>
           </div>
 
-              {/* 5. Provider Model Prefix */}
-              <div className="skeuo-card-subtle p-4 rounded-md space-y-3 col-span-1 md:col-span-2">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2">
-                    <Tags className="w-4 h-4 text-indigo-500" />
-                    <span className="text-xs font-semibold text-zinc-900 dark:text-zinc-100">
-                      Provider Model Prefix
-                    </span>
-                    <span className="text-[9px] px-1.5 py-0.2 rounded font-bold uppercase bg-indigo-500/10 text-indigo-600 dark:text-indigo-400">
-                      {optimizations.modelPrefixEnabled ? "Prefix Shown" : "Unified Names"}
-                    </span>
-                  </div>
-                  <button
-                    type="button"
-                    role="switch"
-                    aria-checked={optimizations.modelPrefixEnabled}
-                    onClick={() => updateOpt({ modelPrefixEnabled: !optimizations.modelPrefixEnabled })}
-                    className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border border-zinc-700/50 transition-colors duration-200 ease-in-out focus:outline-none ${
-                      optimizations.modelPrefixEnabled ? "bg-emerald-600 shadow-[inset_0_1px_2px_rgba(0,0,0,0.3)]" : "bg-zinc-300 dark:bg-zinc-800"
-                    }`}
-                  >
-                    <span
-                      className={`pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow-sm ring-0 transition duration-200 ease-in-out ${
-                        optimizations.modelPrefixEnabled ? "translate-x-4" : "translate-x-0"
-                      }`}
-                    />
-                  </button>
-                </div>
-                <p className="text-[11px] text-zinc-500 dark:text-zinc-400 leading-relaxed">
-                  When enabled, the /v1/models list shows each provider's prefix (e.g. <span className="font-mono">bb/glm-flash</span>). When disabled, prefixes are hidden and duplicate models from multiple providers collapse into a single unified entry.
-                </p>
-              </div>
-
-              {/* 6. HTTPS-Only API Enforcement */}
+          {/* 5. Provider Model Prefix */}
           <div className="skeuo-card-subtle p-4 rounded-md space-y-3 col-span-1 md:col-span-2">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
-                <ShieldCheck className="w-4 h-4 text-emerald-500" />
+                <Tags className="w-4 h-4 text-indigo-500" />
+                <span className="text-xs font-semibold text-zinc-900 dark:text-zinc-100">
+                  Provider Model Prefix
+                </span>
+                <span className="text-[9px] px-1.5 py-0.2 rounded font-bold uppercase bg-indigo-500/10 text-indigo-600 dark:text-indigo-400">
+                  {optimizations.modelPrefixEnabled ? "Prefix Shown" : "Unified Names"}
+                </span>
+              </div>
+              <button
+                type="button"
+                role="switch"
+                aria-checked={optimizations.modelPrefixEnabled}
+                onClick={() => updateOpt({ modelPrefixEnabled: !optimizations.modelPrefixEnabled })}
+                className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border border-zinc-700/50 transition-colors duration-200 ease-in-out focus:outline-none ${optimizations.modelPrefixEnabled ? "bg-blue-600 shadow-[inset_0_1px_2px_rgba(0,0,0,0.3)]" : "bg-zinc-300 dark:bg-zinc-800"
+                  }`}
+              >
+                <span
+                  className={`pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow-sm ring-0 transition duration-200 ease-in-out ${optimizations.modelPrefixEnabled ? "translate-x-4" : "translate-x-0"
+                    }`}
+                />
+              </button>
+            </div>
+            <p className="text-[11px] text-zinc-500 dark:text-zinc-400 leading-relaxed">
+              When enabled, the /v1/models list shows each provider's prefix (e.g. <span className="font-mono">bb/glm-flash</span>). When disabled, prefixes are hidden and duplicate models from multiple providers collapse into a single unified entry.
+            </p>
+          </div>
+
+          {/* 6. HTTPS-Only API Enforcement */}
+          <div className="skeuo-card-subtle p-4 rounded-md space-y-3 col-span-1 md:col-span-2">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-2">
+                <ShieldCheck className="w-4 h-4 text-blue-500" />
                 <span className="text-xs font-semibold text-zinc-900 dark:text-zinc-100">
                   HTTPS-Only API Enforcement
                 </span>
@@ -461,14 +451,12 @@ export const DatabaseSettingsTab: React.FC = () => {
                 role="switch"
                 aria-checked={optimizations.httpsOnly}
                 onClick={() => updateOpt({ httpsOnly: !optimizations.httpsOnly })}
-                className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border border-zinc-700/50 transition-colors duration-200 ease-in-out focus:outline-none ${
-                  optimizations.httpsOnly ? "bg-emerald-600 shadow-[inset_0_1px_2px_rgba(0,0,0,0.3)]" : "bg-zinc-300 dark:bg-zinc-800"
-                }`}
+                className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border border-zinc-700/50 transition-colors duration-200 ease-in-out focus:outline-none ${optimizations.httpsOnly ? "bg-blue-600 shadow-[inset_0_1px_2px_rgba(0,0,0,0.3)]" : "bg-zinc-300 dark:bg-zinc-800"
+                  }`}
               >
                 <span
-                  className={`pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow-sm ring-0 transition duration-200 ease-in-out ${
-                    optimizations.httpsOnly ? "translate-x-4" : "translate-x-0"
-                  }`}
+                  className={`pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow-sm ring-0 transition duration-200 ease-in-out ${optimizations.httpsOnly ? "translate-x-4" : "translate-x-0"
+                    }`}
                 />
               </button>
             </div>
@@ -477,7 +465,7 @@ export const DatabaseSettingsTab: React.FC = () => {
             </p>
           </div>
 
-              {/* 7. Request Timeout (API Duration Limit) */}
+          {/* 7. Request Timeout (API Duration Limit) */}
           <div className="skeuo-card-subtle p-4 rounded-md space-y-3 col-span-1 md:col-span-2">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div className="flex items-center space-x-2">
@@ -517,11 +505,10 @@ export const DatabaseSettingsTab: React.FC = () => {
                       key={preset}
                       type="button"
                       onClick={() => updateOpt({ requestTimeoutSeconds: preset })}
-                      className={`px-2 py-1 text-[10px] font-mono font-medium rounded transition-colors ${
-                        (optimizations.requestTimeoutSeconds ?? 0) === preset
+                      className={`px-2 py-1 text-[10px] font-mono font-medium rounded transition-colors ${(optimizations.requestTimeoutSeconds ?? 0) === preset
                           ? "bg-orange-500 text-white font-bold"
                           : "skeuo-btn text-zinc-600 dark:text-zinc-300 hover:text-orange-500"
-                      }`}
+                        }`}
                     >
                       {preset === 0 ? "Unlimited" : `${preset}s`}
                     </button>
@@ -547,16 +534,15 @@ export const DatabaseSettingsTab: React.FC = () => {
           </div>
 
           <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
-            Neko-Router runs on native <code className="font-mono text-zinc-800 dark:text-zinc-200">bun:sqlite</code> with Write-Ahead Logging (<code className="font-mono text-zinc-800 dark:text-zinc-200">PRAGMA journal_mode = WAL</code>) for high concurrent throughput.
+            Rizuu-Router runs on native <code className="font-mono text-zinc-800 dark:text-zinc-200">bun:sqlite</code> with Write-Ahead Logging (<code className="font-mono text-zinc-800 dark:text-zinc-200">PRAGMA journal_mode = WAL</code>) for high concurrent throughput.
           </p>
 
           {importStatus && (
             <div
-              className={`p-3 rounded-md text-xs flex items-center space-x-2 ${
-                importStatus.success
-                  ? "bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400"
+              className={`p-3 rounded-md text-xs flex items-center space-x-2 ${importStatus.success
+                  ? "bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400"
                   : "bg-red-500/10 border border-red-500/20 text-red-600 dark:text-red-400"
-              }`}
+                }`}
             >
               {importStatus.success ? (
                 <CheckCircle2 className="w-4 h-4 shrink-0" />
@@ -623,11 +609,10 @@ export const DatabaseSettingsTab: React.FC = () => {
 
           {pinStatus && (
             <div
-              className={`p-3 rounded-md text-xs flex items-center space-x-2 ${
-                pinStatus.success
-                  ? "bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400"
+              className={`p-3 rounded-md text-xs flex items-center space-x-2 ${pinStatus.success
+                  ? "bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400"
                   : "bg-red-500/10 border border-red-500/20 text-red-600 dark:text-red-400"
-              }`}
+                }`}
             >
               {pinStatus.success ? (
                 <CheckCircle2 className="w-4 h-4 shrink-0" />
@@ -706,7 +691,7 @@ export const DatabaseSettingsTab: React.FC = () => {
         <div className="lg:col-span-2 skeuo-card p-6 space-y-4">
           <div className="flex items-center justify-between pb-2 border-b border-zinc-200 dark:border-zinc-800">
             <div className="flex items-center space-x-2">
-              <Server className="w-5 h-5 text-emerald-500" />
+              <Server className="w-5 h-5 text-blue-500" />
               <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
                 Runtime Diagnostics & Engine
               </h3>

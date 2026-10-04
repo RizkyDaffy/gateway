@@ -16,7 +16,7 @@ const MOTIVATIONAL_QUOTES = [
   { quote: "Bukan karena mudah kita berani, tapi karena kita berani maka semuanya menjadi mungkin.", author: "Seneca" },
   { quote: "Jangan takut melangkah perlahan, takutlah jika hanya berdiam diri.", author: "Pepatah" },
   { quote: "Disiplin dan konsistensi adalah jembatan antara impian dan pencapaian.", author: "Jim Rohn" },
-  { quote: "Tetap tenang, berpikir jernih, dan selesaikan tantangan baris demi baris.", author: "NekoRouter" },
+  { quote: "Tetap tenang, berpikir jernih, dan selesaikan tantangan baris demi baris.", author: "RizuuRouter" },
   { quote: "Any fool can write code that a computer can understand. Good programmers write code that humans can understand.", author: "Martin Fowler" },
   { quote: "Kualitas bukanlah suatu aksi tunggal, melainkan sebuah kebiasaan berkelanjutan.", author: "Aristotle" },
   { quote: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
@@ -27,10 +27,10 @@ const MOTIVATIONAL_QUOTES = [
   { quote: "Everything seems impossible until it's done.", author: "Nelson Mandela" },
   { quote: "The best way to predict the future is to invent it.", author: "Alan Kay" },
   { quote: "Code never lies, comments sometimes do.", author: "Ron Jeffries" },
-  { quote: "Iterate fast, stay focused, and ship with confidence.", author: "NekoRouter" },
+  { quote: "Iterate fast, stay focused, and ship with confidence.", author: "RizuuRouter" },
   { quote: "Usaha dan doa tidak pernah mengkhianati hasil.", author: "Anonim" },
   { quote: "Tantangan adalah apa yang membuat hidup menarik; mengatasinya adalah apa yang membuat hidup bermakna.", author: "Joshua J. Marine" },
-  { quote: "Write clean code, build reliable systems, and keep pushing forward.", author: "NekoRouter" },
+  { quote: "Write clean code, build reliable systems, and keep pushing forward.", author: "RizuuRouter" },
 ];
 
 function formatBytes(bytes: number): string {
@@ -111,7 +111,7 @@ function getV1Directory() {
 
   return {
     status: "online",
-    gateway: "Neko-Router",
+    gateway: "Rizuu-Router",
     version: "1.0.0",
     motivation: randomMotivation,
     server: {
@@ -174,7 +174,7 @@ export const proxyRoutes = new Elysia()
         return {
           error: {
             message:
-              "Missing API key. Pass your Neko-Router key via 'Authorization: Bearer <key>' or 'x-api-key: <key>'.",
+              "Missing API key. Pass your Rizuu-Router key via 'Authorization: Bearer <key>' or 'x-api-key: <key>'.",
             type: "invalid_request_error",
             code: "invalid_api_key",
           },
@@ -183,7 +183,7 @@ export const proxyRoutes = new Elysia()
       set.status = 401;
       return {
         error: {
-          message: "Invalid or inactive Neko-Router API key.",
+          message: "Invalid or inactive Rizuu-Router API key.",
           type: "invalid_request_error",
           code: "invalid_api_key",
         },
@@ -275,7 +275,7 @@ export const proxyRoutes = new Elysia()
           error: {
             type: "authentication_error",
             message:
-              "Missing API key. Pass your Neko-Router key via 'x-api-key: <key>' or 'Authorization: Bearer <key>'.",
+              "Missing API key. Pass your Rizuu-Router key via 'x-api-key: <key>' or 'Authorization: Bearer <key>'.",
           },
         };
       }
@@ -284,7 +284,7 @@ export const proxyRoutes = new Elysia()
         type: "error",
         error: {
           type: "authentication_error",
-          message: "Invalid or inactive Neko-Router API key.",
+          message: "Invalid or inactive Rizuu-Router API key.",
         },
       };
     }

@@ -1,7 +1,7 @@
 services:
-  neko-router:
+  rizuu-router:
     build: .
-    container_name: neko-router
+    container_name: rizuu-router
     restart: unless-stopped
     network_mode: "host"
     env_file:

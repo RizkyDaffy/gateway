@@ -36,7 +36,7 @@ export const CodeSnippetViewer: React.FC<CodeSnippetViewerProps> = ({ code, lang
         if (match[1]) {
           parts.push(<span key={key} className="text-zinc-500 italic">{token}</span>);
         } else if (match[2]) {
-          parts.push(<span key={key} className="text-emerald-400 font-medium">{token}</span>);
+          parts.push(<span key={key} className="text-blue-400 font-medium">{token}</span>);
         } else if (match[3]) {
           parts.push(<span key={key} className="text-cyan-400 font-bold">{token}</span>);
         } else if (match[4]) {
@@ -50,7 +50,7 @@ export const CodeSnippetViewer: React.FC<CodeSnippetViewerProps> = ({ code, lang
         if (match[1]) {
           parts.push(<span key={key} className="text-zinc-500 italic">{token}</span>);
         } else if (match[2]) {
-          parts.push(<span key={key} className="text-emerald-400">{token}</span>);
+          parts.push(<span key={key} className="text-blue-400">{token}</span>);
         } else if (match[3]) {
           parts.push(<span key={key} className="text-pink-400 font-semibold">{token}</span>);
         } else if (match[4]) {

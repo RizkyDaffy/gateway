@@ -31,7 +31,7 @@ jobs:
             export BUN_INSTALL="$HOME/.bun"
             export PATH="$BUN_INSTALL/bin:$PATH"
 
-            cd /root/Neko-Router
+            cd /root/Rizuu-Router
 
             echo "Pulling latest changes..."
             git pull origin main

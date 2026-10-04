@@ -90,11 +90,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
           <div className="flex items-center justify-between w-full">
             <div className="flex items-center space-x-3">
               <div className="flex items-center justify-center w-9 h-9 rounded-md bg-gradient-to-b from-zinc-800 to-zinc-950 border border-zinc-700/80 shadow-[inset_0_1px_0_rgba(255,255,255,0.15),0_2px_4px_rgba(0,0,0,0.5)] text-white">
-                <Cat className="w-5 h-5 text-emerald-400" />
+                <Cat className="w-5 h-5 text-blue-400" />
               </div>
               <div>
                 <span className="font-bold text-sm tracking-tight text-zinc-900 dark:text-zinc-100">
-                  Neko<span className="text-zinc-400 dark:text-zinc-500 font-normal">Router</span>
+                  Rizuu<span className="text-zinc-400 dark:text-zinc-500 font-normal">Router</span>
                 </span>
               </div>
             </div>
@@ -131,14 +131,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
                         onClose();
                       }}
                       className={`w-full flex items-center space-x-3 px-3 py-2 rounded-md text-left transition-all duration-120 group cursor-pointer ${isActive
-                          ? "bg-gradient-to-b from-zinc-800 to-zinc-900 text-zinc-100 font-medium border border-zinc-700/80 shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_1px_2px_rgba(0,0,0,0.4)]"
-                          : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-200/50 dark:hover:bg-zinc-800/40"
+                        ? "bg-gradient-to-b from-zinc-800 to-zinc-900 text-zinc-100 font-medium border border-zinc-700/80 shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_1px_2px_rgba(0,0,0,0.4)]"
+                        : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-200/50 dark:hover:bg-zinc-800/40"
                         }`}
                     >
                       <Icon
                         className={`w-4 h-4 shrink-0 transition-colors ${isActive
-                            ? "text-zinc-100"
-                            : "text-zinc-400 group-hover:text-zinc-600 dark:group-hover:text-zinc-300"
+                          ? "text-zinc-100"
+                          : "text-zinc-400 group-hover:text-zinc-600 dark:group-hover:text-zinc-300"
                           }`}
                       />
                       <div className="flex-1 min-w-0">

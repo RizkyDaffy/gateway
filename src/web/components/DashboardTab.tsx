@@ -94,12 +94,12 @@ function renderNodeIcon(node: any) {
 
   // OpenAI Codex
   if (b.includes("chatgpt.com/backend-api/codex") || n.includes("codex") || id === "openai-codex") {
-    return <OpenAIIcon className="w-3.5 h-3.5 text-emerald-400" />;
+    return <OpenAIIcon className="w-3.5 h-3.5 text-blue-400" />;
   }
 
   // OpenAI / ChatGPT
   if (b.includes("api.openai.com") || n.includes("openai") || (p === "openai" && (n.includes("gpt") || n.includes("o1") || n.includes("o3")))) {
-    return <OpenAIIcon className="w-3.5 h-3.5 text-emerald-400" />;
+    return <OpenAIIcon className="w-3.5 h-3.5 text-blue-400" />;
   }
 
   // Gemini / Google
@@ -142,7 +142,7 @@ export const DashboardTab: React.FC = () => {
   // 9Router View Tabs & Filters
   const [activeSubtab, setActiveSubtabState] = useState<"overview" | "details">(() => {
     if (typeof window !== "undefined") {
-      const saved = localStorage.getItem("neko_dashboard_subtab");
+      const saved = localStorage.getItem("rizuu_dashboard_subtab");
       if (saved === "overview" || saved === "details") return saved;
     }
     return "overview";
@@ -151,12 +151,12 @@ export const DashboardTab: React.FC = () => {
   const setActiveSubtab = (tab: "overview" | "details") => {
     setActiveSubtabState(tab);
     try {
-      localStorage.setItem("neko_dashboard_subtab", tab);
+      localStorage.setItem("rizuu_dashboard_subtab", tab);
     } catch { }
   };
   const [timeFilter, setTimeFilterState] = useState<"Today" | "24h" | "7D" | "30D" | "All">(() => {
     if (typeof window !== "undefined") {
-      const saved = localStorage.getItem("neko_dashboard_time_filter");
+      const saved = localStorage.getItem("rizuu_dashboard_time_filter");
       if (saved === "Today" || saved === "24h" || saved === "7D" || saved === "30D" || saved === "All") return saved;
     }
     return "Today";
@@ -165,7 +165,7 @@ export const DashboardTab: React.FC = () => {
   const setTimeFilter = (filter: "Today" | "24h" | "7D" | "30D" | "All") => {
     setTimeFilterState(filter);
     try {
-      localStorage.setItem("neko_dashboard_time_filter", filter);
+      localStorage.setItem("rizuu_dashboard_time_filter", filter);
     } catch { }
   };
   const [graphMetricView, setGraphMetricView] = useState<"tokens" | "cost">("tokens");
@@ -474,7 +474,7 @@ export const DashboardTab: React.FC = () => {
               <span className="text-xs font-semibold text-zinc-900 dark:text-zinc-100">
                 Router Base URL
               </span>
-              <span className="text-[10px] px-1.5 py-0.5 rounded font-mono font-medium bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+              <span className="text-[10px] px-1.5 py-0.5 rounded font-mono font-medium bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
                 ACTIVE
               </span>
             </div>
@@ -493,8 +493,8 @@ export const DashboardTab: React.FC = () => {
           >
             {copiedType === "v1" ? (
               <>
-                <Check className="w-3.5 h-3.5 text-emerald-500" />
-                <span className="text-emerald-500 font-semibold">Copied OpenAI URL!</span>
+                <Check className="w-3.5 h-3.5 text-blue-500" />
+                <span className="text-blue-500 font-semibold">Copied OpenAI URL!</span>
               </>
             ) : (
               <>
@@ -511,8 +511,8 @@ export const DashboardTab: React.FC = () => {
           >
             {copiedType === "root" ? (
               <>
-                <Check className="w-3.5 h-3.5 text-emerald-500" />
-                <span className="text-emerald-500 font-semibold">Copied Anthropic URL!</span>
+                <Check className="w-3.5 h-3.5 text-blue-500" />
+                <span className="text-blue-500 font-semibold">Copied Anthropic URL!</span>
               </>
             ) : (
               <>
@@ -547,8 +547,8 @@ export const DashboardTab: React.FC = () => {
                   key={t}
                   onClick={() => setTimeFilter(t)}
                   className={`px-2.5 py-1 rounded transition-all font-medium cursor-pointer ${timeFilter === t
-                      ? "skeuo-btn text-zinc-900 dark:text-zinc-100 font-semibold shadow-xs"
-                      : "text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200"
+                    ? "skeuo-btn text-zinc-900 dark:text-zinc-100 font-semibold shadow-xs"
+                    : "text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200"
                     }`}
                 >
                   {t === "All" ? "All Time" : t}
@@ -580,8 +580,8 @@ export const DashboardTab: React.FC = () => {
             <div className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 mt-1">
               {stats ? stats.totalRequests.toLocaleString() : "0"}
             </div>
-            <div className="mt-1 text-[11px] text-emerald-600 dark:text-emerald-400 flex items-center space-x-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block" />
+            <div className="mt-1 text-[11px] text-blue-600 dark:text-blue-400 flex items-center space-x-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-500 inline-block" />
               <span>{stats ? `${stats.successRequests} successful` : "0 successful"}</span>
             </div>
           </div>
@@ -600,15 +600,15 @@ export const DashboardTab: React.FC = () => {
           </div>
 
           {/* CACHED TOKENS */}
-          <div className="skeuo-card p-3.5 border-emerald-500/20 bg-emerald-500/5">
-            <div className="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider flex items-center space-x-1">
+          <div className="skeuo-card p-3.5 border-blue-500/20 bg-blue-500/5">
+            <div className="text-[11px] font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider flex items-center space-x-1">
               <span>Cached Tokens</span>
-              <Sparkles className="w-3 h-3 text-emerald-500" />
+              <Sparkles className="w-3 h-3 text-blue-500" />
             </div>
-            <div className="text-2xl font-bold text-emerald-600 dark:text-emerald-400 mt-1">
+            <div className="text-2xl font-bold text-blue-600 dark:text-blue-400 mt-1">
               {stats ? (stats.totalCachedTokens || 0).toLocaleString() : "0"}
             </div>
-            <div className="mt-1 text-[11px] text-emerald-600/80 dark:text-emerald-400/80">
+            <div className="mt-1 text-[11px] text-blue-600/80 dark:text-blue-400/80">
               Zero-latency cache hit
             </div>
           </div>
@@ -653,8 +653,8 @@ export const DashboardTab: React.FC = () => {
             <button
               onClick={() => setActiveSubtab("overview")}
               className={`px-3 py-1 rounded-md transition-all font-medium ${activeSubtab === "overview"
-                  ? "bg-[#272832] text-zinc-100 font-semibold shadow-xs"
-                  : "text-zinc-400 hover:text-zinc-200"
+                ? "bg-[#272832] text-zinc-100 font-semibold shadow-xs"
+                : "text-zinc-400 hover:text-zinc-200"
                 }`}
             >
               Overview
@@ -662,8 +662,8 @@ export const DashboardTab: React.FC = () => {
             <button
               onClick={() => setActiveSubtab("details")}
               className={`px-3 py-1 rounded-md transition-all font-medium ${activeSubtab === "details"
-                  ? "bg-[#272832] text-zinc-100 font-semibold shadow-xs"
-                  : "text-zinc-400 hover:text-zinc-200"
+                ? "bg-[#272832] text-zinc-100 font-semibold shadow-xs"
+                : "text-zinc-400 hover:text-zinc-200"
                 }`}
             >
               Details
@@ -673,7 +673,7 @@ export const DashboardTab: React.FC = () => {
           <div className="flex items-center space-x-3 text-xs text-zinc-400">
             <div className="flex items-center space-x-1.5">
               <span
-                className={`w-2 h-2 rounded-full inline-block ${activeUpstreamIds.length > 0 ? "bg-emerald-500 animate-pulse" : "bg-zinc-600"
+                className={`w-2 h-2 rounded-full inline-block ${activeUpstreamIds.length > 0 ? "bg-blue-500 animate-pulse" : "bg-zinc-600"
                   }`}
               />
               <span className="text-[11px] font-mono text-zinc-300">
@@ -784,15 +784,15 @@ export const DashboardTab: React.FC = () => {
                 </svg>
               )}
 
-              {/* Center Core Node: NekoRouter (Placed dead center at 0,0) */}
+              {/* Center Core Node: RizuuRouter (Placed dead center at 0,0) */}
               <div
                 className="absolute z-10 -translate-x-1/2 -translate-y-1/2"
                 style={{ left: "0px", top: "0px" }}
               >
                 <div
                   className={`px-4 py-2 rounded-lg bg-[#171821] border transition-all ${activeUpstreamIds.length > 0
-                      ? "border-orange-500/80 shadow-[0_0_24px_rgba(249,115,22,0.4)]"
-                      : "border-zinc-800 shadow-[0_4px_16px_rgba(0,0,0,0.5)]"
+                    ? "border-orange-500/80 shadow-[0_0_24px_rgba(249,115,22,0.4)]"
+                    : "border-zinc-800 shadow-[0_4px_16px_rgba(0,0,0,0.5)]"
                     } flex items-center space-x-2.5 hover:scale-105`}
                 >
                   <div className="w-6 h-6 rounded bg-orange-500 flex items-center justify-center text-white font-black text-xs shadow-inner">
@@ -800,10 +800,10 @@ export const DashboardTab: React.FC = () => {
                   </div>
                   <div className="flex items-center space-x-1.5">
                     <span className="font-semibold text-xs text-white tracking-wide">
-                      NekoRouter
+                      RizuuRouter
                     </span>
                     <span
-                      className={`w-2 h-2 rounded-full inline-block transition-colors ${activeUpstreamIds.length > 0 ? "bg-emerald-400 animate-pulse" : "bg-zinc-600"
+                      className={`w-2 h-2 rounded-full inline-block transition-colors ${activeUpstreamIds.length > 0 ? "bg-blue-400 animate-pulse" : "bg-zinc-600"
                         }`}
                     />
                   </div>
@@ -836,8 +836,8 @@ export const DashboardTab: React.FC = () => {
                   >
                     <div
                       className={`px-3 py-1.5 rounded-lg bg-[#14151c] transition-all flex items-center space-x-2.5 ${isNodeActive
-                          ? "border border-orange-500/80 shadow-[0_0_18px_rgba(249,115,22,0.4)] ring-1 ring-orange-500/30"
-                          : "border border-zinc-800 hover:border-zinc-700 shadow-[0_4px_12px_rgba(0,0,0,0.6)]"
+                        ? "border border-orange-500/80 shadow-[0_0_18px_rgba(249,115,22,0.4)] ring-1 ring-orange-500/30"
+                        : "border border-zinc-800 hover:border-zinc-700 shadow-[0_4px_12px_rgba(0,0,0,0.6)]"
                         }`}
                     >
                       <div className="w-5 h-5 rounded flex items-center justify-center shrink-0 overflow-hidden bg-zinc-800/90 border border-zinc-700/70 shadow-xs">
@@ -847,7 +847,7 @@ export const DashboardTab: React.FC = () => {
                         {node.name}
                       </span>
                       <span
-                        className={`w-1.5 h-1.5 rounded-full inline-block transition-colors ${isNodeActive ? "bg-emerald-400 animate-pulse" : "bg-zinc-600"
+                        className={`w-1.5 h-1.5 rounded-full inline-block transition-colors ${isNodeActive ? "bg-blue-400 animate-pulse" : "bg-zinc-600"
                           }`}
                       />
                     </div>
@@ -906,7 +906,7 @@ export const DashboardTab: React.FC = () => {
                       {/* Model with status dot */}
                       <div className="col-span-5 flex items-center space-x-1.5 truncate">
                         <span
-                          className={`w-1.5 h-1.5 rounded-full shrink-0 ${isOk ? "bg-emerald-400" : "bg-rose-500"
+                          className={`w-1.5 h-1.5 rounded-full shrink-0 ${isOk ? "bg-blue-400" : "bg-rose-500"
                             }`}
                         />
                         <span className="font-mono text-[11px] text-zinc-300 truncate" title={log.model}>
@@ -917,7 +917,7 @@ export const DashboardTab: React.FC = () => {
                       {/* Tokens or Cost */}
                       <div className="col-span-4 text-right font-mono text-[11px]">
                         {graphMetricView === "cost" ? (
-                          <span className="text-emerald-400 font-semibold">
+                          <span className="text-blue-400 font-semibold">
                             {formatCost(logCost)}
                           </span>
                         ) : (
@@ -925,7 +925,7 @@ export const DashboardTab: React.FC = () => {
                             <span className="text-zinc-300">
                               {log.promptTokens.toLocaleString()}
                             </span>
-                            <span className="text-emerald-500 mx-0.5">↑</span>
+                            <span className="text-blue-500 mx-0.5">↑</span>
                             <span className="text-zinc-400">
                               {log.completionTokens.toLocaleString()}
                             </span>
@@ -952,8 +952,8 @@ export const DashboardTab: React.FC = () => {
             <button
               onClick={() => setGraphMetricView("tokens")}
               className={`px-3 py-1 rounded transition-all font-medium ${graphMetricView === "tokens"
-                  ? "bg-orange-500 text-white font-semibold shadow-xs"
-                  : "text-zinc-400 hover:text-zinc-200"
+                ? "bg-orange-500 text-white font-semibold shadow-xs"
+                : "text-zinc-400 hover:text-zinc-200"
                 }`}
             >
               Tokens
@@ -961,8 +961,8 @@ export const DashboardTab: React.FC = () => {
             <button
               onClick={() => setGraphMetricView("cost")}
               className={`px-3 py-1 rounded transition-all font-medium ${graphMetricView === "cost"
-                  ? "bg-orange-500 text-white font-semibold shadow-xs"
-                  : "text-zinc-400 hover:text-zinc-200"
+                ? "bg-orange-500 text-white font-semibold shadow-xs"
+                : "text-zinc-400 hover:text-zinc-200"
                 }`}
             >
               Cost
@@ -1008,7 +1008,7 @@ export const DashboardTab: React.FC = () => {
                         ? m.estimatedCost
                         : calculateTokenCost(m.model, m.promptTokens ?? Math.round((m.tokens || 0) * 0.7), m.completionTokens ?? Math.round((m.tokens || 0) * 0.3), m.cachedTokens || 0);
                       return cost > 0 ? (
-                        <span className="text-[11px] text-emerald-600 dark:text-emerald-400 ml-1.5 font-semibold">
+                        <span className="text-[11px] text-blue-600 dark:text-blue-400 ml-1.5 font-semibold">
                           ({formatCost(cost)})
                         </span>
                       ) : null;

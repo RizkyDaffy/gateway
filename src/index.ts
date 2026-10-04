@@ -51,7 +51,7 @@ const app = new Elysia()
       path: "/swagger",
       documentation: {
         info: {
-          title: "Neko-Router API Gateway",
+          title: "Rizuu-Router API Gateway",
           version: "1.0.0",
           description:
             "Ultra-low latency AI Gateway & Router for OpenAI and Anthropic compatible endpoints with real-time stream passthrough and token telemetry.",
@@ -89,7 +89,7 @@ const app = new Elysia()
   });
 
 app.listen({ port, hostname: host }, () => {
-  console.log(`🐱 Neko-Router AI Gateway is running at http://${host}:${port}`);
+  console.log(`🐱 Rizuu-Router AI Gateway is running at http://${host}:${port}`);
   console.log(`📖 Interactive OpenAPI Docs at http://${host}:${port}/swagger`);
 });
 

@@ -35,7 +35,7 @@ export const ClientKeysTab: React.FC = () => {
     if (typeof window !== "undefined") {
       const param = new URLSearchParams(window.location.search).get("subtab");
       if (param === "secret-keys" || param === "router-keys") return param;
-      const saved = localStorage.getItem("neko_client_keys_subtab");
+      const saved = localStorage.getItem("rizuu_client_keys_subtab");
       if (saved === "secret-keys" || saved === "router-keys") return saved;
     }
     return "secret-keys";
@@ -44,7 +44,7 @@ export const ClientKeysTab: React.FC = () => {
   const setActiveSubTab = (tab: "secret-keys" | "router-keys") => {
     setActiveSubTabState(tab);
     try {
-      localStorage.setItem("neko_client_keys_subtab", tab);
+      localStorage.setItem("rizuu_client_keys_subtab", tab);
     } catch { }
   };
 
@@ -156,7 +156,7 @@ export const ClientKeysTab: React.FC = () => {
       .map((b) => b.toString(36))
       .join("")
       .slice(0, 28);
-    return `sk-neko-${random}`;
+    return `sk-rizuu-${random}`;
   };
 
   const generateRandomApiKey = () => {
@@ -623,8 +623,8 @@ export const ClientKeysTab: React.FC = () => {
             <button
               onClick={() => setActiveSubTab("secret-keys")}
               className={`flex items-center space-x-2 px-3.5 py-1.5 rounded-md font-semibold transition-all cursor-pointer ${activeSubTab === "secret-keys"
-                  ? "bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 shadow-xs"
-                  : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200"
+                ? "bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 shadow-xs"
+                : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200"
                 }`}
             >
               <Key className="w-3.5 h-3.5" />
@@ -637,13 +637,13 @@ export const ClientKeysTab: React.FC = () => {
             <button
               onClick={() => setActiveSubTab("router-keys")}
               className={`flex items-center space-x-2 px-3.5 py-1.5 rounded-md font-semibold transition-all cursor-pointer ${activeSubTab === "router-keys"
-                  ? "bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 shadow-xs"
-                  : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200"
+                ? "bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 shadow-xs"
+                : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200"
                 }`}
             >
               <Terminal className="w-3.5 h-3.5" />
               <span>API Keys (Router Integration)</span>
-              <span className="ml-1 text-[10px] px-1.5 py-0.2 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold border border-emerald-500/20">
+              <span className="ml-1 text-[10px] px-1.5 py-0.2 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 font-bold border border-blue-500/20">
                 {routerApiKeys.length}
               </span>
             </button>
@@ -669,7 +669,7 @@ export const ClientKeysTab: React.FC = () => {
             </div>
             <div>
               <span className="font-bold text-zinc-900 dark:text-zinc-100">
-                Secret Keys (<code className="font-mono text-[11px]">sk-neko-...</code>)
+                Secret Keys (<code className="font-mono text-[11px]">sk-rizuu-...</code>)
               </span>
               <p className="text-[11px] text-zinc-500 dark:text-zinc-400 mt-0.5 leading-relaxed">
                 Used strictly by AI clients & SDKs (OpenAI, Anthropic, Cursor, Cline) to query <code className="font-mono">/v1/chat/completions</code>, <code className="font-mono">/v1/messages</code>, and <code className="font-mono">/v1/models</code>. Each secret key is strictly owned by one API Key.
@@ -678,7 +678,7 @@ export const ClientKeysTab: React.FC = () => {
           </div>
 
           <div className="flex items-start space-x-2.5">
-            <div className="p-1.5 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 shrink-0">
+            <div className="p-1.5 rounded-md bg-blue-500/10 text-blue-600 dark:text-blue-400 shrink-0">
               <Terminal className="w-4 h-4" />
             </div>
             <div>
@@ -686,7 +686,7 @@ export const ClientKeysTab: React.FC = () => {
                 Router API Keys (<code className="font-mono text-[11px]">nr-api-...</code>)
               </span>
               <p className="text-[11px] text-zinc-500 dark:text-zinc-400 mt-0.5 leading-relaxed">
-                Used strictly to authenticate against Neko-Router's programmatic management API (<code className="font-mono">/api/...</code>). One Router API Key can own and manage multiple Secret Keys.
+                Used strictly to authenticate against Rizuu-Router's programmatic management API (<code className="font-mono">/api/...</code>). One Router API Key can own and manage multiple Secret Keys.
               </p>
             </div>
           </div>
@@ -778,7 +778,7 @@ export const ClientKeysTab: React.FC = () => {
                         <Key className="w-8 h-8 mx-auto mb-2 opacity-40" />
                         <p className="font-medium">No secret keys configured yet</p>
                         <p className="text-[11px] mt-1">
-                          Generate a secret key to grant AI clients access to Neko-Router's proxy endpoints.
+                          Generate a secret key to grant AI clients access to Rizuu-Router's proxy endpoints.
                         </p>
                       </td>
                     </tr>
@@ -832,7 +832,7 @@ export const ClientKeysTab: React.FC = () => {
                             <div className="flex items-center space-x-2">
                               <span>{k.name}</span>
                               {k.isFollowUpstream && (
-                                <span className="inline-flex items-center space-x-1 px-1.5 py-0.2 rounded text-[10px] font-bold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
+                                <span className="inline-flex items-center space-x-1 px-1.5 py-0.2 rounded text-[10px] font-bold bg-blue-500/15 text-blue-600 dark:text-blue-400 border border-blue-500/30">
                                   <span>Follow Upstream</span>
                                 </span>
                               )}
@@ -857,7 +857,7 @@ export const ClientKeysTab: React.FC = () => {
                                   title="Copy secret key"
                                 >
                                   {isCopied ? (
-                                    <Check className="w-3.5 h-3.5 text-emerald-500" />
+                                    <Check className="w-3.5 h-3.5 text-blue-500" />
                                   ) : (
                                     <Copy className="w-3.5 h-3.5" />
                                   )}
@@ -868,8 +868,8 @@ export const ClientKeysTab: React.FC = () => {
 
                           {/* Parent API Key Badge */}
                           <td className="px-5 py-3.5">
-                            <span className="inline-flex items-center space-x-1 px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 text-[11px] font-medium font-mono">
-                              <Shield className="w-3 h-3 text-emerald-500" />
+                            <span className="inline-flex items-center space-x-1 px-2 py-0.5 rounded bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 text-[11px] font-medium font-mono">
+                              <Shield className="w-3 h-3 text-blue-500" />
                               <span>{k.apiKeyName || "Unassigned"}</span>
                             </span>
                           </td>
@@ -881,8 +881,8 @@ export const ClientKeysTab: React.FC = () => {
                             >
                               {k.isActive ? (
                                 <>
-                                  <ToggleRight className="w-5 h-5 text-emerald-500" />
-                                  <span className="text-[11px] font-medium text-emerald-600 dark:text-emerald-400">Active</span>
+                                  <ToggleRight className="w-5 h-5 text-blue-500" />
+                                  <span className="text-[11px] font-medium text-blue-600 dark:text-blue-400">Active</span>
                                 </>
                               ) : (
                                 <>
@@ -906,7 +906,7 @@ export const ClientKeysTab: React.FC = () => {
                                   {allowedCount} of {relevantUpstreams.length} Allowed
                                 </span>
                               ) : allowedCount > 0 ? (
-                                <span className="font-semibold text-emerald-600 dark:text-emerald-400">
+                                <span className="font-semibold text-blue-600 dark:text-blue-400">
                                   {allowedCount} of {relevantUpstreams.length} Allowed
                                 </span>
                               ) : (
@@ -952,10 +952,10 @@ export const ClientKeysTab: React.FC = () => {
                                 <div className="w-full h-1.5 rounded-sm bg-zinc-100 dark:bg-zinc-800 overflow-hidden">
                                   <div
                                     className={`h-full rounded-sm transition-all ${isExceeded
-                                        ? "bg-red-500"
-                                        : percentage > 80
-                                          ? "bg-amber-500"
-                                          : "bg-indigo-500"
+                                      ? "bg-red-500"
+                                      : percentage > 80
+                                        ? "bg-amber-500"
+                                        : "bg-indigo-500"
                                       }`}
                                     style={{ width: `${percentage}%` }}
                                   />
@@ -1007,7 +1007,7 @@ export const ClientKeysTab: React.FC = () => {
                               <button
                                 onClick={() => openRotateSecretModal(k)}
                                 className="p-1.5 rounded-md skeuo-btn text-zinc-600 dark:text-zinc-300 hover:text-amber-500 dark:hover:text-amber-400 cursor-pointer transition-colors"
-                                title="Rotate / Regenerate secret key string (sk-neko-...)"
+                                title="Rotate / Regenerate secret key string (sk-rizuu-...)"
                               >
                                 <RotateCw className="w-3.5 h-3.5" />
                               </button>
@@ -1173,7 +1173,7 @@ export const ClientKeysTab: React.FC = () => {
                                 title="Copy API key"
                               >
                                 {isCopied ? (
-                                  <Check className="w-3.5 h-3.5 text-emerald-500" />
+                                  <Check className="w-3.5 h-3.5 text-blue-500" />
                                 ) : (
                                   <Copy className="w-3.5 h-3.5" />
                                 )}
@@ -1196,8 +1196,8 @@ export const ClientKeysTab: React.FC = () => {
                             >
                               {ak.isActive ? (
                                 <>
-                                  <ToggleRight className="w-5 h-5 text-emerald-500" />
-                                  <span className="text-[11px] font-medium text-emerald-600 dark:text-emerald-400">Active</span>
+                                  <ToggleRight className="w-5 h-5 text-blue-500" />
+                                  <span className="text-[11px] font-medium text-blue-600 dark:text-blue-400">Active</span>
                                 </>
                               ) : (
                                 <>
@@ -1217,7 +1217,7 @@ export const ClientKeysTab: React.FC = () => {
                             <div className="inline-flex items-center space-x-1.5">
                               <button
                                 onClick={() => openEditApiKeyModal(ak)}
-                                className="p-1.5 rounded-md skeuo-btn text-zinc-600 dark:text-zinc-300 hover:text-emerald-600 transition-colors cursor-pointer"
+                                className="p-1.5 rounded-md skeuo-btn text-zinc-600 dark:text-zinc-300 hover:text-blue-600 transition-colors cursor-pointer"
                                 title="Edit Router API key details"
                               >
                                 <Edit3 className="w-3.5 h-3.5" />
@@ -1231,7 +1231,7 @@ export const ClientKeysTab: React.FC = () => {
                               </button>
                               <button
                                 onClick={() => copyToClipboard(ak.key, ak.id)}
-                                className="p-1.5 rounded-md skeuo-btn text-zinc-600 dark:text-zinc-300 hover:text-emerald-600 transition-colors cursor-pointer"
+                                className="p-1.5 rounded-md skeuo-btn text-zinc-600 dark:text-zinc-300 hover:text-blue-600 transition-colors cursor-pointer"
                                 title="Copy API key string"
                               >
                                 <Copy className="w-3.5 h-3.5" />
@@ -1276,7 +1276,7 @@ export const ClientKeysTab: React.FC = () => {
                   title="Close"
                 />
                 <span className="w-3 h-3 rounded-full bg-amber-500/80 inline-block" />
-                <span className="w-3 h-3 rounded-full bg-emerald-500/80 inline-block" />
+                <span className="w-3 h-3 rounded-full bg-blue-500/80 inline-block" />
               </div>
               <h3 className="text-sm font-bold text-zinc-900 dark:text-zinc-100">
                 Create AI Proxy Secret Key
@@ -1352,10 +1352,10 @@ export const ClientKeysTab: React.FC = () => {
                             type="button"
                             onClick={() => setNewCustomSecretKey(generateRandomSecretKey())}
                             className="text-[11px] font-mono text-orange-500 hover:text-orange-400 flex items-center space-x-1 cursor-pointer transition-colors"
-                            title="Generate random sk-neko- key"
+                            title="Generate random sk-rizuu- key"
                           >
                             <Shuffle className="w-3 h-3" />
-                            <span>Random sk-neko-</span>
+                            <span>Random sk-rizuu-</span>
                           </button>
                         </div>
                         <div className="relative">
@@ -1363,7 +1363,7 @@ export const ClientKeysTab: React.FC = () => {
                             type="text"
                             value={newCustomSecretKey}
                             onChange={(e) => setNewCustomSecretKey(e.target.value)}
-                            placeholder="Leave blank to auto-generate sk-neko-..."
+                            placeholder="Leave blank to auto-generate sk-rizuu-..."
                             className="w-full px-3 py-2 rounded-md skeuo-inset font-mono text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-1 focus:ring-zinc-600 pr-9"
                           />
                           {newCustomSecretKey && (
@@ -1378,7 +1378,7 @@ export const ClientKeysTab: React.FC = () => {
                           )}
                         </div>
                         <p className="mt-1 text-[10px] text-zinc-400">
-                          All Secret Keys are formatted with <code className="font-mono text-orange-500 font-semibold">sk-neko-</code> prefix automatically.
+                          All Secret Keys are formatted with <code className="font-mono text-orange-500 font-semibold">sk-rizuu-</code> prefix automatically.
                         </p>
                       </div>
                     )}
@@ -1450,8 +1450,8 @@ export const ClientKeysTab: React.FC = () => {
                               <label
                                 key={u.id}
                                 className={`flex items-center justify-between p-2 rounded-md border text-xs cursor-pointer transition-colors ${isChecked
-                                    ? "bg-emerald-500/10 border-emerald-500/30 text-zinc-900 dark:text-zinc-100"
-                                    : "bg-white dark:bg-zinc-800/60 border-zinc-200 dark:border-zinc-700 text-zinc-500 dark:text-zinc-400"
+                                  ? "bg-blue-500/10 border-blue-500/30 text-zinc-900 dark:text-zinc-100"
+                                  : "bg-white dark:bg-zinc-800/60 border-zinc-200 dark:border-zinc-700 text-zinc-500 dark:text-zinc-400"
                                   }`}
                               >
                                 <div className="flex items-center space-x-2 min-w-0">
@@ -1516,7 +1516,7 @@ export const ClientKeysTab: React.FC = () => {
                           className="p-1 cursor-pointer"
                         >
                           {newRoundRobinProviders ? (
-                            <ToggleRight className="w-5 h-5 text-emerald-500" />
+                            <ToggleRight className="w-5 h-5 text-blue-500" />
                           ) : (
                             <ToggleLeft className="w-5 h-5 text-zinc-400" />
                           )}
@@ -1609,7 +1609,7 @@ export const ClientKeysTab: React.FC = () => {
                   title="Close"
                 />
                 <span className="w-3 h-3 rounded-full bg-amber-500/80 inline-block" />
-                <span className="w-3 h-3 rounded-full bg-emerald-500/80 inline-block" />
+                <span className="w-3 h-3 rounded-full bg-blue-500/80 inline-block" />
               </div>
               <h3 className="text-sm font-bold text-zinc-900 dark:text-zinc-100">
                 Create Router Integration API Key
@@ -1730,14 +1730,14 @@ export const ClientKeysTab: React.FC = () => {
                   title="Close"
                 />
                 <span className="w-3 h-3 rounded-full bg-amber-500/80 inline-block" />
-                <span className="w-3 h-3 rounded-full bg-emerald-500/80 inline-block" />
+                <span className="w-3 h-3 rounded-full bg-blue-500/80 inline-block" />
               </div>
               <div>
                 <h3 className="text-sm font-bold text-zinc-900 dark:text-zinc-100">
                   Provider Access: {activePermKey.name}
                 </h3>
                 <p className="text-[11px] text-zinc-500 dark:text-zinc-400 mt-0.5">
-                  Owned by: <span className="font-semibold text-emerald-600 dark:text-emerald-400">{activePermKey.apiKeyName || "Unassigned"}</span>
+                  Owned by: <span className="font-semibold text-blue-600 dark:text-blue-400">{activePermKey.apiKeyName || "Unassigned"}</span>
                 </p>
               </div>
             </div>
@@ -1752,7 +1752,7 @@ export const ClientKeysTab: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => handleToggleAllProvidersForActiveKey(true)}
-                    className="skeuo-btn px-2.5 py-1 rounded text-[11px] font-medium text-emerald-600 dark:text-emerald-400 cursor-pointer"
+                    className="skeuo-btn px-2.5 py-1 rounded text-[11px] font-medium text-blue-600 dark:text-blue-400 cursor-pointer"
                   >
                     Allow All
                   </button>
@@ -1783,7 +1783,7 @@ export const ClientKeysTab: React.FC = () => {
                   title="Toggle round-robin routing across providers with same model"
                 >
                   {activePermKey.roundRobinProviders !== false ? (
-                    <ToggleRight className="w-6 h-6 text-emerald-500" />
+                    <ToggleRight className="w-6 h-6 text-blue-500" />
                   ) : (
                     <ToggleLeft className="w-6 h-6 text-zinc-400" />
                   )}
@@ -1824,7 +1824,7 @@ export const ClientKeysTab: React.FC = () => {
                     )}
                     {displayedPermUpstreams.length === 0 ? (
                       <div className="py-8 text-center text-xs text-zinc-400">
-                        No upstream providers configured in Neko-Router.
+                        No upstream providers configured in Rizuu-Router.
                       </div>
                     ) : (
                       displayedPermUpstreams.map((u) => {
@@ -1835,63 +1835,63 @@ export const ClientKeysTab: React.FC = () => {
                           <div
                             key={u.id}
                             className={`p-3 rounded-lg border flex items-center justify-between transition-colors ${isAllowed
-                                ? "skeuo-card-subtle border-emerald-500/30"
-                                : "bg-zinc-100/50 dark:bg-zinc-900/30 border-zinc-200 dark:border-zinc-800 opacity-60"
+                              ? "skeuo-card-subtle border-blue-500/30"
+                              : "bg-zinc-100/50 dark:bg-zinc-900/30 border-zinc-200 dark:border-zinc-800 opacity-60"
                               }`}
                           >
-                      <div className="min-w-0 flex-1 pr-2">
-                        <div className="flex items-center space-x-2">
-                          <span className="font-bold text-xs text-zinc-900 dark:text-zinc-100 truncate">
-                            {u.name}
-                          </span>
-                          {Boolean((u as any).followUpstream || u.id === "up_bandelbanget_follow") ? (
-                            <span className="text-[10px] px-1.5 py-0.2 rounded bg-purple-500/15 text-purple-400 font-bold border border-purple-500/30 shrink-0">
-                              Pass-Through
-                            </span>
-                          ) : (
-                            <span className="text-[10px] px-1.5 py-0.2 rounded bg-zinc-500/10 text-zinc-400 font-medium border border-zinc-500/20 shrink-0">
-                              Input Key
-                            </span>
-                          )}
-                          <span
-                            className={`inline-flex items-center px-1.5 py-0.2 rounded text-[10px] font-bold uppercase tracking-wider ${u.provider === "openai"
-                                ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20"
-                                : "bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20"
-                              }`}
-                          >
-                            {u.provider}
-                          </span>
-                        </div>
-                        <div className="text-[11px] text-zinc-500 dark:text-zinc-400 font-mono mt-0.5 truncate">
-                          {Boolean((u as any).followUpstream || u.id === "up_bandelbanget_follow") ? "Direct Pass-Through" : (u.baseUrl || "Official API")}
-                        </div>
-                      </div>
+                            <div className="min-w-0 flex-1 pr-2">
+                              <div className="flex items-center space-x-2">
+                                <span className="font-bold text-xs text-zinc-900 dark:text-zinc-100 truncate">
+                                  {u.name}
+                                </span>
+                                {Boolean((u as any).followUpstream || u.id === "up_bandelbanget_follow") ? (
+                                  <span className="text-[10px] px-1.5 py-0.2 rounded bg-purple-500/15 text-purple-400 font-bold border border-purple-500/30 shrink-0">
+                                    Pass-Through
+                                  </span>
+                                ) : (
+                                  <span className="text-[10px] px-1.5 py-0.2 rounded bg-zinc-500/10 text-zinc-400 font-medium border border-zinc-500/20 shrink-0">
+                                    Input Key
+                                  </span>
+                                )}
+                                <span
+                                  className={`inline-flex items-center px-1.5 py-0.2 rounded text-[10px] font-bold uppercase tracking-wider ${u.provider === "openai"
+                                    ? "bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20"
+                                    : "bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20"
+                                    }`}
+                                >
+                                  {u.provider}
+                                </span>
+                              </div>
+                              <div className="text-[11px] text-zinc-500 dark:text-zinc-400 font-mono mt-0.5 truncate">
+                                {Boolean((u as any).followUpstream || u.id === "up_bandelbanget_follow") ? "Direct Pass-Through" : (u.baseUrl || "Official API")}
+                              </div>
+                            </div>
 
-                      <div className="flex items-center space-x-3 shrink-0">
-                        <span
-                          className={`text-[10px] font-semibold px-2 py-0.5 rounded ${isAllowed
-                              ? "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400"
-                              : "bg-zinc-200 dark:bg-zinc-800 text-zinc-400"
-                            }`}
-                        >
-                          {isAllowed ? "ALLOWED" : "OFF"}
-                        </span>
-                        <button
-                          type="button"
-                          onClick={() => handleToggleProviderForActiveKey(u.id)}
-                          className="p-1 cursor-pointer"
-                        >
-                          {isAllowed ? (
-                            <ToggleRight className="w-6 h-6 text-emerald-500" />
-                          ) : (
-                            <ToggleLeft className="w-6 h-6 text-zinc-400" />
-                          )}
-                        </button>
-                      </div>
-                    </div>
-                  );
-                })
-              )}
+                            <div className="flex items-center space-x-3 shrink-0">
+                              <span
+                                className={`text-[10px] font-semibold px-2 py-0.5 rounded ${isAllowed
+                                  ? "bg-blue-500/15 text-blue-600 dark:text-blue-400"
+                                  : "bg-zinc-200 dark:bg-zinc-800 text-zinc-400"
+                                  }`}
+                              >
+                                {isAllowed ? "ALLOWED" : "OFF"}
+                              </span>
+                              <button
+                                type="button"
+                                onClick={() => handleToggleProviderForActiveKey(u.id)}
+                                className="p-1 cursor-pointer"
+                              >
+                                {isAllowed ? (
+                                  <ToggleRight className="w-6 h-6 text-blue-500" />
+                                ) : (
+                                  <ToggleLeft className="w-6 h-6 text-zinc-400" />
+                                )}
+                              </button>
+                            </div>
+                          </div>
+                        );
+                      })
+                    )}
                   </>
                 );
               })()}
@@ -1952,7 +1952,7 @@ export const ClientKeysTab: React.FC = () => {
                   title="Close"
                 />
                 <span className="w-3 h-3 rounded-full bg-amber-500/80 inline-block" />
-                <span className="w-3 h-3 rounded-full bg-emerald-500/80 inline-block" />
+                <span className="w-3 h-3 rounded-full bg-blue-500/80 inline-block" />
               </div>
               <div className="flex items-center justify-between flex-1">
                 <h3 className="text-sm font-bold text-zinc-900 dark:text-zinc-100">
@@ -1994,13 +1994,13 @@ export const ClientKeysTab: React.FC = () => {
                     type="button"
                     onClick={() => setEditSecretIsActive(!editSecretIsActive)}
                     className={`w-full px-3 py-2 rounded-md border flex items-center justify-between font-semibold transition-colors cursor-pointer ${editSecretIsActive
-                        ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-600 dark:text-emerald-400"
-                        : "bg-zinc-100 dark:bg-zinc-800 border-zinc-300 dark:border-zinc-700 text-zinc-400"
+                      ? "bg-blue-500/10 border-blue-500/30 text-blue-600 dark:text-blue-400"
+                      : "bg-zinc-100 dark:bg-zinc-800 border-zinc-300 dark:border-zinc-700 text-zinc-400"
                       }`}
                   >
                     <span>{editSecretIsActive ? "Active" : "Disabled"}</span>
                     {editSecretIsActive ? (
-                      <ToggleRight className="w-5 h-5 text-emerald-500" />
+                      <ToggleRight className="w-5 h-5 text-blue-500" />
                     ) : (
                       <ToggleLeft className="w-5 h-5 text-zinc-400" />
                     )}
@@ -2049,8 +2049,8 @@ export const ClientKeysTab: React.FC = () => {
                       type="button"
                       onClick={() => setEditSecretTokenLimitType("unlimited")}
                       className={`px-2.5 py-0.5 rounded font-medium transition-colors cursor-pointer ${editSecretTokenLimitType === "unlimited"
-                          ? "bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 shadow-xs"
-                          : "text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200"
+                        ? "bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 shadow-xs"
+                        : "text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200"
                         }`}
                     >
                       Unlimited
@@ -2059,8 +2059,8 @@ export const ClientKeysTab: React.FC = () => {
                       type="button"
                       onClick={() => setEditSecretTokenLimitType("custom")}
                       className={`px-2.5 py-0.5 rounded font-medium transition-colors cursor-pointer ${editSecretTokenLimitType === "custom"
-                          ? "bg-white dark:bg-zinc-900 text-indigo-600 dark:text-indigo-400 font-semibold shadow-xs"
-                          : "text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200"
+                        ? "bg-white dark:bg-zinc-900 text-indigo-600 dark:text-indigo-400 font-semibold shadow-xs"
+                        : "text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200"
                         }`}
                     >
                       Custom Limit
@@ -2103,28 +2103,28 @@ export const ClientKeysTab: React.FC = () => {
                         <button
                           type="button"
                           onClick={() => adjustEditTokenLimit(100000)}
-                          className="skeuo-btn px-2 py-0.5 rounded text-[10px] font-mono text-emerald-600 dark:text-emerald-400 cursor-pointer"
+                          className="skeuo-btn px-2 py-0.5 rounded text-[10px] font-mono text-blue-600 dark:text-blue-400 cursor-pointer"
                         >
                           +100K
                         </button>
                         <button
                           type="button"
                           onClick={() => adjustEditTokenLimit(500000)}
-                          className="skeuo-btn px-2 py-0.5 rounded text-[10px] font-mono text-emerald-600 dark:text-emerald-400 cursor-pointer"
+                          className="skeuo-btn px-2 py-0.5 rounded text-[10px] font-mono text-blue-600 dark:text-blue-400 cursor-pointer"
                         >
                           +500K
                         </button>
                         <button
                           type="button"
                           onClick={() => adjustEditTokenLimit(1000000)}
-                          className="skeuo-btn px-2 py-0.5 rounded text-[10px] font-mono text-emerald-600 dark:text-emerald-400 cursor-pointer font-bold"
+                          className="skeuo-btn px-2 py-0.5 rounded text-[10px] font-mono text-blue-600 dark:text-blue-400 cursor-pointer font-bold"
                         >
                           +1M
                         </button>
                         <button
                           type="button"
                           onClick={() => adjustEditTokenLimit(5000000)}
-                          className="skeuo-btn px-2 py-0.5 rounded text-[10px] font-mono text-emerald-600 dark:text-emerald-400 cursor-pointer font-bold"
+                          className="skeuo-btn px-2 py-0.5 rounded text-[10px] font-mono text-blue-600 dark:text-blue-400 cursor-pointer font-bold"
                         >
                           +5M
                         </button>
@@ -2172,10 +2172,10 @@ export const ClientKeysTab: React.FC = () => {
                     <div className="w-full h-1.5 rounded-sm bg-zinc-200 dark:bg-zinc-800 overflow-hidden">
                       <div
                         className={`h-full rounded-sm transition-all ${editSecretUsedTokens >= Number(editSecretTokenLimit)
-                            ? "bg-red-500"
-                            : (editSecretUsedTokens / Number(editSecretTokenLimit)) * 100 > 80
-                              ? "bg-amber-500"
-                              : "bg-indigo-500"
+                          ? "bg-red-500"
+                          : (editSecretUsedTokens / Number(editSecretTokenLimit)) * 100 > 80
+                            ? "bg-amber-500"
+                            : "bg-indigo-500"
                           }`}
                         style={{
                           width: `${Math.min(
@@ -2196,7 +2196,7 @@ export const ClientKeysTab: React.FC = () => {
                 <div className="flex items-center justify-between">
                   <div>
                     <label className="font-semibold text-zinc-800 dark:text-zinc-200 flex items-center space-x-1.5">
-                      <Gauge className="w-4 h-4 text-emerald-500" />
+                      <Gauge className="w-4 h-4 text-blue-500" />
                       <span>Rate Limit (req/min)</span>
                     </label>
                     <p className="text-[10px] text-zinc-400 mt-0.5">
@@ -2210,8 +2210,8 @@ export const ClientKeysTab: React.FC = () => {
                       type="button"
                       onClick={() => setRateLimitPreset("unlimited")}
                       className={`px-2.5 py-0.5 rounded font-medium transition-colors cursor-pointer ${editSecretRateLimitType === "unlimited"
-                          ? "bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 shadow-xs"
-                          : "text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200"
+                        ? "bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 shadow-xs"
+                        : "text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200"
                         }`}
                     >
                       Unlimited
@@ -2223,8 +2223,8 @@ export const ClientKeysTab: React.FC = () => {
                         if (!editSecretRateLimit) setEditSecretRateLimit(60);
                       }}
                       className={`px-2.5 py-0.5 rounded font-medium transition-colors cursor-pointer ${editSecretRateLimitType === "custom"
-                          ? "bg-white dark:bg-zinc-900 text-emerald-600 dark:text-emerald-400 font-semibold shadow-xs"
-                          : "text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200"
+                        ? "bg-white dark:bg-zinc-900 text-blue-600 dark:text-blue-400 font-semibold shadow-xs"
+                        : "text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200"
                         }`}
                     >
                       Custom Limit
@@ -2255,8 +2255,8 @@ export const ClientKeysTab: React.FC = () => {
                           type="button"
                           onClick={() => setRateLimitPreset(preset)}
                           className={`skeuo-btn px-2 py-0.5 rounded text-[10px] font-mono cursor-pointer transition-colors ${editSecretRateLimit === preset
-                              ? "border-emerald-500/50 text-emerald-600 dark:text-emerald-400 font-bold"
-                              : "text-zinc-500"
+                            ? "border-blue-500/50 text-blue-600 dark:text-blue-400 font-bold"
+                            : "text-zinc-500"
                             }`}
                         >
                           {preset}/m
@@ -2318,7 +2318,7 @@ export const ClientKeysTab: React.FC = () => {
                   title="Close"
                 />
                 <span className="w-3 h-3 rounded-full bg-amber-500/80 inline-block" />
-                <span className="w-3 h-3 rounded-full bg-emerald-500/80 inline-block" />
+                <span className="w-3 h-3 rounded-full bg-blue-500/80 inline-block" />
               </div>
               <h3 className="text-sm font-bold text-zinc-900 dark:text-zinc-100">
                 Rotate Secret Key: {rotatingSecretKey.name}
@@ -2359,7 +2359,7 @@ export const ClientKeysTab: React.FC = () => {
                       className="text-[11px] font-mono text-orange-500 hover:text-orange-400 flex items-center space-x-1 cursor-pointer transition-colors"
                     >
                       <Shuffle className="w-3 h-3" />
-                      <span>Random sk-neko-</span>
+                      <span>Random sk-rizuu-</span>
                     </button>
                   </div>
                   <div className="relative">
@@ -2367,7 +2367,7 @@ export const ClientKeysTab: React.FC = () => {
                       type="text"
                       value={customRotateSecretKey}
                       onChange={(e) => setCustomRotateSecretKey(e.target.value)}
-                      placeholder="Leave blank to auto-generate a secure random sk-neko-..."
+                      placeholder="Leave blank to auto-generate a secure random sk-rizuu-..."
                       className="w-full px-3 py-2 rounded-md skeuo-inset font-mono text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-1 focus:ring-zinc-600 pr-9"
                     />
                     {customRotateSecretKey && (
@@ -2418,12 +2418,12 @@ export const ClientKeysTab: React.FC = () => {
             ) : (
               /* Success State after Rotation */
               <div className="space-y-4 text-xs">
-                <div className="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 dark:text-emerald-300 space-y-1">
+                <div className="p-3.5 rounded-xl bg-blue-500/10 border border-blue-500/30 text-blue-700 dark:text-blue-300 space-y-1">
                   <div className="flex items-center space-x-2 font-bold text-sm">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-blue-500 shrink-0" />
                     <span>Secret Key Rotated Successfully!</span>
                   </div>
-                  <p className="text-[11px] text-emerald-600 dark:text-emerald-300/90">
+                  <p className="text-[11px] text-blue-600 dark:text-blue-300/90">
                     The old key has been permanently invalidated. Copy the new key below and update your application.
                   </p>
                 </div>
@@ -2441,7 +2441,7 @@ export const ClientKeysTab: React.FC = () => {
                     >
                       {copiedId === "rotated-sk" ? (
                         <>
-                          <Check className="w-3.5 h-3.5 text-emerald-500" />
+                          <Check className="w-3.5 h-3.5 text-blue-500" />
                           <span>Copied!</span>
                         </>
                       ) : (
@@ -2488,7 +2488,7 @@ export const ClientKeysTab: React.FC = () => {
                   title="Close"
                 />
                 <span className="w-3 h-3 rounded-full bg-amber-500/80 inline-block" />
-                <span className="w-3 h-3 rounded-full bg-emerald-500/80 inline-block" />
+                <span className="w-3 h-3 rounded-full bg-blue-500/80 inline-block" />
               </div>
               <h3 className="text-sm font-bold text-zinc-900 dark:text-zinc-100">
                 Edit Router API Key: {editingApiKey.name}
@@ -2569,7 +2569,7 @@ export const ClientKeysTab: React.FC = () => {
                   title="Close"
                 />
                 <span className="w-3 h-3 rounded-full bg-amber-500/80 inline-block" />
-                <span className="w-3 h-3 rounded-full bg-emerald-500/80 inline-block" />
+                <span className="w-3 h-3 rounded-full bg-blue-500/80 inline-block" />
               </div>
               <h3 className="text-sm font-bold text-zinc-900 dark:text-zinc-100">
                 Rotate Router API Key: {rotatingApiKey.name}
@@ -2648,12 +2648,12 @@ export const ClientKeysTab: React.FC = () => {
               </div>
             ) : (
               <div className="space-y-4 text-xs">
-                <div className="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 dark:text-emerald-300 space-y-1">
+                <div className="p-3.5 rounded-xl bg-blue-500/10 border border-blue-500/30 text-blue-700 dark:text-blue-300 space-y-1">
                   <div className="flex items-center space-x-2 font-bold text-sm">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-blue-500 shrink-0" />
                     <span>Router API Key Rotated Successfully!</span>
                   </div>
-                  <p className="text-[11px] text-emerald-600 dark:text-emerald-300/90">
+                  <p className="text-[11px] text-blue-600 dark:text-blue-300/90">
                     The previous key has been revoked. Copy your new integration key below.
                   </p>
                 </div>
@@ -2667,11 +2667,11 @@ export const ClientKeysTab: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => copyToClipboard(rotatedApiKeyResult.key, "rotated-ak")}
-                      className="skeuo-btn px-3 py-1.5 rounded-md font-semibold text-xs text-emerald-600 dark:text-emerald-400 flex items-center space-x-1 shrink-0 cursor-pointer"
+                      className="skeuo-btn px-3 py-1.5 rounded-md font-semibold text-xs text-blue-600 dark:text-blue-400 flex items-center space-x-1 shrink-0 cursor-pointer"
                     >
                       {copiedId === "rotated-ak" ? (
                         <>
-                          <Check className="w-3.5 h-3.5 text-emerald-500" />
+                          <Check className="w-3.5 h-3.5 text-blue-500" />
                           <span>Copied!</span>
                         </>
                       ) : (

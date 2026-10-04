@@ -70,7 +70,7 @@ export const adminRoutes = new Elysia({ prefix: "/api/admin" })
 
     const file = Bun.file(DB_PATH);
     const dateStr = new Date().toISOString().replace(/[:.]/g, "-").slice(0, 19);
-    const filename = `neko-router-backup-${dateStr}.sqlite`;
+    const filename = `rizuu-router-backup-${dateStr}.sqlite`;
 
     return new Response(file, {
       headers: {
@@ -163,7 +163,7 @@ export const adminRoutes = new Elysia({ prefix: "/api/admin" })
         } catch {
           try {
             copyFileSync(DB_PATH, backupPath);
-          } catch {}
+          } catch { }
         }
 
         // Attach imported DB and atomically synchronize tables
@@ -223,7 +223,7 @@ export const adminRoutes = new Elysia({ prefix: "/api/admin" })
         } finally {
           try {
             sqlite.run("DETACH DATABASE imported_db;");
-          } catch {}
+          } catch { }
         }
 
         // Clean up temp file

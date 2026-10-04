@@ -113,7 +113,7 @@ export const TelemetryTab: React.FC = () => {
                           <span
                             className={`text-[9px] px-1 py-0.2 rounded font-bold uppercase ${
                               log.provider === "openai"
-                                ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                                ? "bg-blue-500/10 text-blue-600 dark:text-blue-400"
                                 : "bg-amber-500/10 text-amber-600 dark:text-amber-400"
                             }`}
                           >
@@ -139,7 +139,7 @@ export const TelemetryTab: React.FC = () => {
                       </td>
                       <td className="px-4 py-3 font-mono">
                         {(log.cachedTokens || 0) > 0 ? (
-                          <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10">
+                          <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold text-blue-600 dark:text-blue-400 bg-blue-500/10">
                             <Sparkles className="w-3 h-3 mr-1 shrink-0" />
                             {log.cachedTokens.toLocaleString()}
                           </span>
@@ -160,7 +160,7 @@ export const TelemetryTab: React.FC = () => {
                         <span
                           className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold ${
                             isOk
-                              ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20"
+                              ? "bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20"
                               : isWarning
                               ? "bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20"
                               : "bg-red-500/10 text-red-600 dark:text-red-400 border border-red-500/20"
@@ -197,7 +197,7 @@ export const TelemetryTab: React.FC = () => {
                   title="Close"
                 />
                 <span className="w-3 h-3 rounded-full bg-amber-500/80 inline-block" />
-                <span className="w-3 h-3 rounded-full bg-emerald-500/80 inline-block" />
+                <span className="w-3 h-3 rounded-full bg-blue-500/80 inline-block" />
               </div>
               <h3 className="text-sm font-bold text-zinc-900 dark:text-zinc-100">
                 Request Telemetry Detail
@@ -218,7 +218,7 @@ export const TelemetryTab: React.FC = () => {
                       className="text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 shrink-0 p-1 rounded hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-colors cursor-pointer"
                       title="Copy Log ID"
                     >
-                      {copiedId ? <Check className="w-3 h-3 text-emerald-500" /> : <Copy className="w-3 h-3" />}
+                      {copiedId ? <Check className="w-3 h-3 text-blue-500" /> : <Copy className="w-3 h-3" />}
                     </button>
                   </div>
                 </div>
@@ -241,7 +241,7 @@ export const TelemetryTab: React.FC = () => {
                     <span
                       className={`text-[9px] px-1.5 py-0.2 rounded font-bold uppercase ${
                         selectedLog.provider === "openai"
-                          ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                          ? "bg-blue-500/10 text-blue-600 dark:text-blue-400"
                           : "bg-amber-500/10 text-amber-600 dark:text-amber-400"
                       }`}
                     >
@@ -259,7 +259,7 @@ export const TelemetryTab: React.FC = () => {
                 </div>
                 <div className="min-w-0">
                   <span className="text-zinc-400 block text-[10px] uppercase font-semibold tracking-wider">Cached</span>
-                  <span className="font-mono font-bold text-emerald-600 dark:text-emerald-400 text-xs">
+                  <span className="font-mono font-bold text-blue-600 dark:text-blue-400 text-xs">
                     {(selectedLog.cachedTokens || 0).toLocaleString()}
                   </span>
                 </div>

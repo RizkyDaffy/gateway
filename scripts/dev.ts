@@ -1,6 +1,6 @@
 import { spawn } from "child_process";
 
-console.log("\x1b[36m%s\x1b[0m", "🐱 [Neko-Router] Starting full-stack development environment...");
+console.log("\x1b[36m%s\x1b[0m", "🐱 [Rizuu-Router] Starting full-stack development environment...");
 console.log("\x1b[32m%s\x1b[0m", "• Server & Frontend (Elysia + Eden): http://localhost:3000 (auto-reloads on src/ changes)\n");
 
 const isWindows = process.platform === "win32";
@@ -31,7 +31,7 @@ const cleanup = () => {
   isShuttingDown = true;
   try {
     if (server) server.kill();
-  } catch (e) {}
+  } catch (e) { }
   process.exit(0);
 };
 

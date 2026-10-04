@@ -64,7 +64,7 @@ export function getTabFromLocation(): string {
     return tabParam;
   }
 
-  const saved = localStorage.getItem("neko_active_tab");
+  const saved = localStorage.getItem("rizuu_active_tab");
   if (saved && ["dashboard", "client-keys", "upstream-keys", "api-providers", "telemetry", "database"].includes(saved)) {
     return saved;
   }
@@ -82,7 +82,7 @@ export const App: React.FC = () => {
   const handleTabChange = (tabId: string) => {
     setActiveTabState(tabId);
     try {
-      localStorage.setItem("neko_active_tab", tabId);
+      localStorage.setItem("rizuu_active_tab", tabId);
       const targetPath = TAB_ROUTES[tabId] || "/";
       if (window.location.pathname !== targetPath) {
         window.history.pushState({ tab: tabId }, "", targetPath);
@@ -203,7 +203,7 @@ export const App: React.FC = () => {
         {/* Footer — sits at viewport bottom, perfectly aligned with sidebar bottom */}
         <footer className="h-12 shrink-0 border-t border-zinc-200/80 dark:border-zinc-800/80 bg-[#fafafa] dark:bg-[#09090b] px-6 flex items-center text-xs text-zinc-500 dark:text-zinc-400 z-10">
           <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-2">
-            <span>Neko-Router &copy; {new Date().getFullYear()} — Ultra-Low Latency AI Gateway</span>
+            <span>Rizuu-Router &copy; {new Date().getFullYear()} — Ultra-Low Latency AI Gateway</span>
             <span className="font-mono text-[11px]">Bun + ElysiaJS + SQLite WAL</span>
           </div>
         </footer>

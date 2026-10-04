@@ -314,7 +314,7 @@ export async function pollGitHubDeviceToken(deviceCode: string): Promise<{
           headers: {
             Authorization: `Bearer ${token}`,
             Accept: "application/vnd.github+json",
-            "User-Agent": "Neko-Router-OAuth/1.0",
+            "User-Agent": "Rizuu-Router-OAuth/1.0",
             "x-github-api-version": "2022-11-28",
           },
           signal: AbortSignal.timeout(5000),
@@ -328,7 +328,7 @@ export async function pollGitHubDeviceToken(deviceCode: string): Promise<{
             headers: {
               Authorization: `token ${token}`,
               Accept: "application/vnd.github+json",
-              "User-Agent": "Neko-Router-OAuth/1.0",
+              "User-Agent": "Rizuu-Router-OAuth/1.0",
               "x-github-api-version": "2022-11-28",
             },
             signal: AbortSignal.timeout(5000),

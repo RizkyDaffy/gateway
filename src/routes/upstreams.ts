@@ -45,7 +45,7 @@ const adjectives = [
 ];
 
 const nouns = [
-  "falcon", "lynx", "neko", "panther", "router", "gateway", "pulse",
+  "falcon", "lynx", "rizuu", "panther", "router", "gateway", "pulse",
   "engine", "spark", "node", "core", "vertex", "nexus", "orbit"
 ];
 
@@ -502,9 +502,9 @@ export const upstreamRoutes = new Elysia({ prefix: "/api/upstreams" })
                   .set({ models: JSON.stringify(models) })
                   .where(eq(upstreamKeys.id, item.id))
                   .run();
-              } catch (e) {}
+              } catch (e) { }
             }
-          } catch (e) {}
+          } catch (e) { }
         }
 
         const enabledCount = models.filter((m) => m.enabled).length;
@@ -951,7 +951,7 @@ export const upstreamRoutes = new Elysia({ prefix: "/api/upstreams" })
               }
             }
           }
-        } catch (e) {}
+        } catch (e) { }
         if (fetchedModelIds.length === 0) {
           try {
             const liveModels = await fetchBandelBangetLiveModels();

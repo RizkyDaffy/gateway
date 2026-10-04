@@ -4,7 +4,7 @@
   "2": "schema.ts",
   "3": "rules/graphify.md",
   "4": "workflows/graphify.md",
-  "5": "Neko-Router",
+  "5": "Rizuu-Router",
   "6": "brandkit/SKILL.md",
   "7": "App.tsx",
   "8": "index.ts",
@@ -20,5 +20,5 @@
   "18": "React + TypeScript + Vite",
   "19": "frontend/tsconfig.json",
   "20": "vite.config.ts",
-  "22": "Neko-Router API Documentation"
+  "22": "Rizuu-Router API Documentation"
 }
