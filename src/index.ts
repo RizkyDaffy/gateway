@@ -141,8 +141,39 @@ const app = new Elysia()
     set.headers["Set-Cookie"] = swaggerUnlockCookieHeader();
     return { ok: true };
   })
-  // Health & Info Endpoint
+  // Health & Info Endpoint (REST + SSE Stream)
   .get("/health", () => ({ status: "ok", timestamp: Date.now() }))
+  .get("/health/stream", () => {
+    let interval: ReturnType<typeof setInterval> | null = null;
+    const stream = new ReadableStream({
+      start(controller) {
+        controller.enqueue(
+          new TextEncoder().encode(`data: ${JSON.stringify({ status: "ok", timestamp: Date.now() })}\n\n`)
+        );
+        interval = setInterval(() => {
+          try {
+            controller.enqueue(
+              new TextEncoder().encode(`data: ${JSON.stringify({ status: "ok", timestamp: Date.now() })}\n\n`)
+            );
+          } catch {
+            if (interval) clearInterval(interval);
+          }
+        }, 20000);
+      },
+      cancel() {
+        if (interval) clearInterval(interval);
+      },
+    });
+
+    return new Response(stream, {
+      headers: {
+        "Content-Type": "text/event-stream; charset=utf-8",
+        "Cache-Control": "no-cache, no-transform",
+        "Connection": "keep-alive",
+        "X-Accel-Buffering": "no",
+      },
+    });
+  })
   // Register Route Modules
   .use(authRoutes)
   .use(keysRoutes)
